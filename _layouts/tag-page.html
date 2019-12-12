@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<div class="container">
+        <div class="row remove-site-content-margin">
+                <!-- latest post -->
+                <div class=splash-bg style="height:80px; width:100%;"></div>
+        </div>
+
+        <h2 class="tag badge badge-pill" style="font-size:150%; margin-top:20px">{{ page.tag }}</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                
+            <h4 class="font-weight-bold spanborder text-capitalize" id="{{ category[0] | downcase }}"><span>{{ category[0] }}</span></h4>
+                
+            {% for post in page.posts %}
+            {% if post.title != null %}
+              {% if group == null or group == post.group %}
+                {% include main-loop-card.html %}
+              {% endif %}
+            {% endif %}
+            {% endfor %}
+            {% assign group = nil %}
+          
+            </div>
+            <div class="col-md-3">
+                    {% include sidebar-category.html %}    
+            </div>         
+        </div>
+    </div>

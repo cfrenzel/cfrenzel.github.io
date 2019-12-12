@@ -17,6 +17,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-paginate
   - jekyll-seo-tag
+  - jekyll/tagging
   
 authors:
     sal:
@@ -27,14 +28,6 @@ authors:
       email:          wowthemesnet@gmail.com
       twitter:        https://twitter.com/wowthemesnet
 
-    jane:
-      name:           Jane
-      site:           https://www.wowthemes.net
-      avatar:         /assets/images/avatar2.jpg
-      bio:            "Blogger, fashionista, love to explore new ideas and write on my morning coffee!"
-      email:          fakemail@gmail.com
-      twitter:        https://twitter.com/wowthemesnet
- 
 # Defaults
 defaults:
 
@@ -59,6 +52,9 @@ highlighter: rouge
 # Paginate
 paginate: 10
 
+# Tagging
+tag_page_layout: tag-page
+tag_page_dir: tag
 
 
 # Exclude metadata and development time dependencies (like Grunt plugins)

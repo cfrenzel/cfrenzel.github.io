@@ -1,0 +1,32 @@
+<div class="sticky-top sticky-top-offset">
+       
+    <div class="sidebar-label">
+        <span>categories</span>
+        <hr/>
+    </div>
+    {% assign sorted-cats = (site.categories | sort:) %}
+        <div id="taglist">
+            <ul>
+            {% for cat in sorted-cats %}
+             <li>   
+                    <a href="#{{ cat[0] | slugify }}" class="category badge badge-pill">{{ cat[0] }}</a>
+             </li>
+            {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="sidebar-label">
+                <span>tags</span>
+                <hr/>
+            </div>
+                {% assign sorted-tags = (site.tags | sort:) %}
+        <div id="taglist">
+            <ul>
+            {% for tag in sorted-tags %}
+             <li>   
+                    <a href="{{site.baseurl}}/tag/{{ tag[0] | slugify }}" class="tag badge badge-pill">{{ tag[0] }}</a>
+             </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div> 
