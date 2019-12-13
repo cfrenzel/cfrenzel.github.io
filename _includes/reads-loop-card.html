@@ -4,7 +4,7 @@
 	{{ include.item.title }}
 	</h4>
 	{% if include.item.sub %}
-		<h6 class="mb-1 text-muted font-italic">{{ include.item.sub }}</h6>
+		<span class="mb-1 text-muted">{{ include.item.sub }}</span><br/>
 	{% endif %}	
 	<strong>{{include.item.author}}</strong><br/>
 	{% if include.item.link %}
@@ -13,9 +13,9 @@
 	{% if include.item.audible %}
 		<a class="audiobook"  href="{{include.item.audible}}"><i class="fab fa-audible"></i>audible.com</a>
 	{% endif %}
-	<p class="excerpt">
+	 <blockquote class="styled text-muted">
 	   {{ include.item.content}}
-	</p>
+	 </blockquote>
 	<!-- <small class="d-block text-muted">
 		{% for category in post.categories %}
 			<a class="category badge badge-pill smoothscroll" href="{{site.baseurl}}/categories.html#{{ category | downcase }}">{{ category }}</a>

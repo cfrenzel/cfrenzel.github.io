@@ -81,7 +81,24 @@ ol.list-featured li:before {
 	}
 }
 
-
+blockquote.styled{
+	padding-left: 19px;
+	margin-top:8px;
+	margin-left:0px;
+	font-style:italic;
+	position:relative;
+}
+blockquote.styled:before {
+	content:"“";
+	font-family:Georgia;
+	font-size: 3rem;
+    margin: -.1rem 2rem 0 -1.4rem;
+	position:absolute;
+	opacity:1;
+	float:left;
+	line-height:1;
+}
+}
 
 
 body {
@@ -743,6 +760,7 @@ article {
 article p,article pre,article figure,article img,article blockquote,article iframed,article embed {
 	margin-bottom:2rem;
 }
+
 article blockquote {
 	padding-left:40px;
 	margin-left:0px;
@@ -752,8 +770,8 @@ article blockquote {
 article blockquote:before {
 	content:"“";
 	font-family:Georgia;
-	font-size:8rem;
-	margin:-1rem 2rem 0 -3.9rem;
+	font-size: 6rem;
+    margin: -1rem 2rem 0 -3.4rem;
 	position:absolute;
 	opacity:1;
 	float:left;
