@@ -1,5 +1,6 @@
 ---
 title:  "Algorithms To Live By"
+sub: "The Computer Science of Human Decisions"
 author: "Brian Christian" 
 link: https://brianchristian.org/algorithms-to-live-by/
 image: assets/images/book_Algorithms-to-Live-By-Hardcover-Front-Cover.png

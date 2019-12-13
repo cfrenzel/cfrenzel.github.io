@@ -1,12 +1,13 @@
 # Site
-name: 'Camron Frenzel'
+name: 'cfrenzel'
 description: 'blog of cfrenzel'
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
-disqus: ''
+disqus: 'cfrenzel'
 email: 'cfrenzel@gmail.com'
 mailchimp-list: ''
+highlighter: rouge
 
 include: ["_pages"]
 permalink: /:title/
@@ -25,13 +26,11 @@ plugins:
   - jekyll/tagging
   
 authors:
-    sal:
-      name:           Sal
-      site:           https://www.wowthemes.net
-      avatar:         /assets/images/avatar1.jpg
-      bio:            "Hi, I am Sal, the author of Mundana, the theme you're currently previewing. I hope you like it!"
-      email:          wowthemesnet@gmail.com
-      twitter:        https://twitter.com/wowthemesnet
+    camron:
+      name:           Camron Frenzel
+      site:           https://cfrenzel.github.io
+      avatar:         assets/images/avatar-cam.jpg
+      email:          cfrenzel@gmail.com
 
 # Defaults
 defaults:
@@ -41,8 +40,8 @@ defaults:
       path: "_posts"
     values:
       layout: post
-      author: sal
-      avatar: /assets/images/avatar1.jpg
+      author: camron
+      avatar: assets/images/avatar-cam.jpg
       
   # all pages
   - scope:

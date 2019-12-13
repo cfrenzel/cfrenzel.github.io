@@ -3,6 +3,9 @@
 /*!
  * Mundana Jekyll Theme (https://www.wowthemes.net/mundana-jekyll-theme/)
  */
+pre.highlight{
+	padding:18px;
+}
 
  .audiobook {
 	color: #eab826;
@@ -16,13 +19,22 @@
  .taglist ul{
 	list-style-type: none;
  }
+ .bg-highlight{
+	 padding: 2px 7px;
+}
 .tag{
 	background-color:#fcca3e80;
 	color:#666;
 }
+.tag-text{
+	color:#af8b27e0;
+}
 .category{
-	background-color: #78beaa;
+	background-color:#ea2f65;/* #78beaa;*/
     color: #fff;
+}
+.category-text{
+	color:#ea2f65;
 }
 .books{
 	background-color:#3b7994;
@@ -57,6 +69,16 @@ ol.list-featured li:before {
 	/* opacity: .1; */
 	opacity: .5;
     color: #28647d;
+}
+
+.featured-container{
+	padding-top:18px;
+
+}
+@media (min-width:768px) {
+	.featured-container{
+		padding-left:42px;
+	}
 }
 
 
@@ -704,16 +726,19 @@ footer {
     margin-top:10px;
 }
 article {
-	font-size:20px;
-	line-height:1.86;
-    font-family:Lora;
+	font-size:18px;
+	/* line-height:1.86; */
+	font-family:Lora;
+	color: #404040;
+
 }
 .article-headline {
     font-family: Georgia,Times,"Times New Roman",serif;
-    font-size: 3.2rem;
+    font-size: 2.2rem;
     font-weight: 400;
-    line-height: 1.15;
-    color: #222222;
+    /* line-height: 1.15; */
+	color: #222222;
+	margin:0;
 }
 article p,article pre,article figure,article img,article blockquote,article iframed,article embed {
 	margin-bottom:2rem;
@@ -736,7 +761,7 @@ article blockquote:before {
 }
 article:first-letter {
 	float:left;
-	font-size:5em;
+	font-size:3em;
 	line-height:1;
 	margin:0 .2em 0 0;
 	vertical-align:top;

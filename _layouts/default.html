@@ -22,6 +22,9 @@
     <!-- Theme Stylesheet -->
     <link rel="stylesheet" href="{{site.baseurl}}/assets/css/theme.css">
 
+    <!-- Syntax Highlighter http://jwarby.github.io/jekyll-pygments-themes/languages/javascript.html -->
+    <link rel="stylesheet" href="{{site.baseurl}}/assets/css/vs.css">
+
     <!-- Jquery on header to make sure everything works, the rest  of the scripts in footer for fast loading -->
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -42,7 +45,7 @@
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse collapse" id="navbarColor02" style="">
+        <div class="navbar-collapse collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto d-flex align-items-center">
                {% include menu-header.html %}
             </ul>
@@ -60,6 +63,14 @@
 
     <!-- Content -->
     <main role="main" class="site-content">
+        {% if page.url != "/" %}
+        <div class="container remove-site-content-margin">
+            <div class="row">
+             <div class=splash-bg style="height:80px; width:100%;margin-bottom: 32px;"></div>
+            </div>
+        </div>        
+        {% endif %} <!--endif page url is / -->
+            
         {{ content }}
     </main>
 

@@ -1,4 +1,4 @@
-<div style="padding-top:18px;padding-left:42px">
+<div class="featured-container">
     <ol class="list-featured">	
        
           {% for post in site.tags.featured limit:3 %}                
@@ -25,6 +25,12 @@
                 <img class="read-thumb"  src="{% if read.image contains "://" %}{{ read.image }}{% else %}{{ site.baseurl }}/{{ read.image }}{% endif %}" alt="{{ read.title }}">	
             </a>
             {% endfor %}
+            
+            <a href="{{site.baseurl}}/reading-list">
+                <span style="font-size: 1.5rem;">
+                <i class="fas fa-arrow-circle-right"></i>
+                </span>
+            </a>  
        </div>
 
        <ul>

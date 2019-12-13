@@ -1,5 +1,5 @@
 ---
-title: "Camron Frenzel"
+title: "cfrenzel"
 layout: default
 pagination:
     enabled: true
@@ -7,8 +7,7 @@ description: ""
 ---
 <div class="container">
     
-{% if page.url == "/" %}
-
+{% if page.url == "/" %} <!-- only on home page-->
 <div class="row remove-site-content-margin">
     <div class="col-md-6 splash-bg">
     </div>
@@ -16,13 +15,6 @@ description: ""
         {% include sidebar-featured.html %}    
     </div>  
 </div>
-
-{% else %}
-
-<div class="row remove-site-content-margin">
-    <div class=splash-bg style="height:80px; width:100%;"></div>
-</div>
-
 {% endif %} <!--endif page url is / -->
     
     

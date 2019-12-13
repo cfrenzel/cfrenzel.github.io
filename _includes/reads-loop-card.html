@@ -2,8 +2,10 @@
 <div id="{{ include.item.title | slugify }}" class="pr-3">
 	<h4 class="mb-1 font-italic">
 	{{ include.item.title }}
-	
 	</h4>
+	{% if include.item.sub %}
+		<h6 class="mb-1 text-muted font-italic">{{ include.item.sub }}</h6>
+	{% endif %}	
 	<strong>{{include.item.author}}</strong><br/>
 	{% if include.item.link %}
 		<a  href="{{include.item.link}}">{{include.item.link}}</a><br/>
@@ -28,8 +30,9 @@
 </div>
 {% if include.item.image %}
 	<div class="col-md-3 pr-0 text-right">
-	<img class="w-100" src="{% if include.item.image contains "://" %}{{ include.item.image }}{% else %}{{ site.baseurl }}/{{ include.item.image }}{% endif %}" alt="{{ include.item.title }}">
-	</a>
+	 <a  href="{{include.item.link}}">
+		<img class="w-100" src="{% if include.item.image contains "://" %}{{ include.item.image }}{% else %}{{ site.baseurl }}/{{ include.item.image }}{% endif %}" alt="{{ include.item.title }}">
+	 </a>
 	</div>
 {% endif %}
 </div>

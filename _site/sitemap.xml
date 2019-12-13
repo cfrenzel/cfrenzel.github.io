@@ -29,10 +29,6 @@
 <lastmod>2019-01-23T00:00:00-05:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/powerful-things-markdown-editor/</loc>
-<lastmod>2019-01-24T00:00:00-05:00</lastmod>
-</url>
-<url>
 <loc>http://localhost:4000/press-and-education/</loc>
 <lastmod>2019-01-25T00:00:00-05:00</lastmod>
 </url>
@@ -75,6 +71,12 @@
 <url>
 <loc>http://localhost:4000/algorithms-book/</loc>
 <lastmod>2019-12-12T00:00:00-05:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/samples/2019-01-24-powerful-things-markdown-editor/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/samples/2019-02-02-first-mass-produced/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/404/</loc>

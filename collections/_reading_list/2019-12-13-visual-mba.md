@@ -1,5 +1,6 @@
 ---
 title:  "The Visual MBA"
+sub: "Two Years of Business School Packed into One Priceless Book of Pure Awesomeness"
 author: "Jason Barron" 
 link: https://www.thevisualmbabook.com/
 image: assets/images/book_the-visual-mba-book-cover.jpg
