@@ -1,16 +1,30 @@
 <div class="sticky-top sticky-top-offset">
        
+        <div class="sidebar-label">
+                <span>Books</span>
+                <hr/>
+            </div>
+        
+    <div class="taglist">
+        <ul>     
+            <li>   
+                <a class="books badge badge-pill" href="{{site.baseurl}}/reading-list.html">reading list</a>
+            </li>
+        </ul>
+    </div>
+
     <div class="sidebar-label">
         <span>categories</span>
         <hr/>
     </div>
     {% assign sorted-cats = (site.categories | sort:) %}
-        <div id="taglist">
+        <div class="taglist">
             <ul>
-            {% for cat in sorted-cats %}
-             <li>   
-                    <a href="#{{ cat[0] | slugify }}" class="category badge badge-pill">{{ cat[0] }}</a>
-             </li>
+                
+                 {% for cat in sorted-cats %}
+                <li>   
+                    <a class="category badge badge-pill smoothscroll" href="{{site.baseurl}}/categories.html#{{ cat[0] | slugify }}">{{ cat[0] }}</a>
+                </li>
             {% endfor %}
             </ul>
         </div>
@@ -20,7 +34,7 @@
                 <hr/>
             </div>
                 {% assign sorted-tags = (site.tags | sort:) %}
-        <div id="taglist">
+        <div class="taglist">
             <ul>
             {% for tag in sorted-tags %}
              <li>   

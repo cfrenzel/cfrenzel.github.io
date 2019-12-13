@@ -1,6 +1,6 @@
 # Site
 name: 'Camron Frenzel'
-description: 'Blog'
+description: 'blog of cfrenzel'
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
@@ -10,6 +10,11 @@ mailchimp-list: ''
 
 include: ["_pages"]
 permalink: /:title/
+
+# Collections
+collections_dir: collections
+collections:
+  - reading_list
 
 # Plugins
 plugins: 

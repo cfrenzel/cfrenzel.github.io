@@ -4,13 +4,16 @@
  * Mundana Jekyll Theme (https://www.wowthemes.net/mundana-jekyll-theme/)
  */
 
+ .audiobook {
+	color: #eab826;
+ }
 .splash-bg{
 	background-image: url('{{site.baseurl}}/assets/images/splash_benjamin-catapane.jpg');
     background-repeat:no-repeat;
 	background-position:center center;
     background-size:cover;
 }
- #taglist ul{
+ .taglist ul{
 	list-style-type: none;
  }
 .tag{
@@ -20,6 +23,10 @@
 .category{
 	background-color: #78beaa;
     color: #fff;
+}
+.books{
+	background-color:#3b7994;
+	color: #fff;
 }
 .sidebar-label{
 	padding-left:18px;
@@ -33,6 +40,13 @@
 	margin:4px 0 12px 0;
 	width:60%;
 }
+
+.read-thumb
+{
+	height: 120px;
+    margin-right: 2px;
+    border: 1px solid #ccc;
+}
 ol.list-featured li:before {
     content: "0" counter(my-awesome-counter);
     font-weight: bold;
@@ -44,6 +58,9 @@ ol.list-featured li:before {
 	opacity: .5;
     color: #28647d;
 }
+
+
+
 
 body {
 	overflow-x:hidden;

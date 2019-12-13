@@ -1,8 +1,7 @@
 <div style="padding-top:18px;padding-left:42px">
     <ol class="list-featured">	
        
-        
-          {% for post in site.tags.featured %}                
+          {% for post in site.tags.featured limit:3 %}                
             <li class="mb-3">
             <span>
                 <h6 class="font-weight-bold" style="margin-bottom:.3rem">
@@ -18,11 +17,20 @@
             </span>
             </li>                
         {% endfor %}  
-        
-        <li class="mb-3">
-                
+        </ol>
+       <div>
+        {% assign featured-reads = site.reading_list | where: "tags","featured" | sort | reverse %}
+            {% for read in featured-reads limit:4 %}
+            <a class="smoothscroll" href="{{site.baseurl}}/reading-list#{{ read.title | slugify }}">
+                <img class="read-thumb"  src="{% if read.image contains "://" %}{{ read.image }}{% else %}{{ site.baseurl }}/{{ read.image }}{% endif %}" alt="{{ read.title }}">	
+            </a>
+            {% endfor %}
+       </div>
+
+       <ul>
+            <li class="mb-3">
             <span>   
-            <h6 class="font-weight-bold"  style="margin-bottom:.3rem">
+                <h6 class="font-weight-bold"  style="margin-bottom:.3rem">
                     <a href="https://github.com/cfrenzel/Eventfully">
                         <i class="fab fa-github"></i>
                         Eventfully
@@ -34,5 +42,5 @@
                 </span>
              </span>
           </li>
-    </ol>
+    </ul>
 </div> 

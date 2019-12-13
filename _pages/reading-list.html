@@ -1,0 +1,22 @@
+---
+title: "Reading List"
+layout: default
+permalink: "/reading-list.html"
+---
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+          <h1 class="font-weight-bold title h6 text-uppercase mb-4">Recent Reads</h1>
+          {% assign shortlist = site.reading_list | sort: 'date' | reverse %}
+          {% for reads in shortlist%}
+              {% include reads-loop-card.html item = reads %}
+          {% endfor %}
+        </div>
+        
+    <div class="col-md-4">
+        {% include sidebar-category.html %}    
+    </div>
+        
+    </div>
+</div>
