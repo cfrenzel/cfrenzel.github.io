@@ -19,6 +19,9 @@ pre.highlight{
  .taglist ul{
 	list-style-type: none;
  }
+ .taglist li{
+	 margin-bottom:3px;
+ }
  .bg-highlight{
 	 padding: 2px 7px;
 }
