@@ -100,13 +100,13 @@
 <loc>http://localhost:4000/tags.html</loc>
 </url>
 <url>
-<loc>http://localhost:4000/tag/sticky/</loc>
+<loc>http://localhost:4000/tagged/sticky/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/tag/featured/</loc>
+<loc>http://localhost:4000/tagged/featured/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/tag/summer/</loc>
+<loc>http://localhost:4000/tagged/summer/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/page2/</loc>

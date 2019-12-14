@@ -142,17 +142,17 @@ var documents = [{
     "body": "          Tags          {% for tag in site. tags %}     {{ tag[0] }}:           {% assign pages_list = tag[1] %}    {% for post in pages_list %}    {% if post. title != null %}     {% if group == null or group == post. group %}           {% include main-loop-card. html %}     {% endif %}    {% endif %}    {% endfor %}    {% assign pages_list = nil %}    {% assign group = nil %}    {% endfor %}                  {% include sidebar-featured. html %}          "
     }, {
     "id": 9,
-    "url": "http://localhost:4000/tag/sticky/",
+    "url": "http://localhost:4000/tagged/sticky/",
     "title": "",
     "body": ""
     }, {
     "id": 10,
-    "url": "http://localhost:4000/tag/featured/",
+    "url": "http://localhost:4000/tagged/featured/",
     "title": "",
     "body": ""
     }, {
     "id": 11,
-    "url": "http://localhost:4000/tag/summer/",
+    "url": "http://localhost:4000/tagged/summer/",
     "title": "",
     "body": ""
     }, {
@@ -1578,15 +1578,15 @@ function lunr_search(term) {
              -->
             
             <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="/tag/featured/">featured</a>
+                   <a class="sscroll tag smoothscroll bg-highlight" href="/tagged/featured/">featured</a>
                 </li>
            
             <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="/tag/sticky/">sticky</a>
+                   <a class="sscroll tag smoothscroll bg-highlight" href="/tagged/sticky/">sticky</a>
                 </li>
            
             <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="/tag/summer/">summer</a>
+                   <a class="sscroll tag smoothscroll bg-highlight" href="/tagged/summer/">summer</a>
                 </li>
            
             
