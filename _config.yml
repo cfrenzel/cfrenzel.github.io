@@ -58,7 +58,7 @@ paginate: 10
 
 # Tagging
 tag_page_layout: tag-page
-tag_page_dir: tagged
+tag_page_dir: tag
 
 
 # Exclude metadata and development time dependencies (like Grunt plugins)
