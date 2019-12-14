@@ -85,7 +85,8 @@
 </li>
             </ul>
             <ul class="navbar-nav ml-auto d-flex align-items-center">
-                <script src="/assets/js/lunr.js"></script>
+                <li>
+                    <script src="/assets/js/lunr.js"></script>
 
 <script>
 $(function() {
@@ -311,6 +312,10 @@ function lunr_search(term) {
 <form class="bd-search hidden-sm-down" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
 <input type="text" class="form-control text-small"  id="lunrsearch" name="q" value="" placeholder="Type keyword and enter..."> 
 </form>
+                </li>
+                <li>
+                    <a href="/feed.xml"><i class="fas fa-rss-square" style="font-size: 1.5rem;padding-left: 12px;"></i></a>
+                </li>
             </ul>
         </div>
     </div>

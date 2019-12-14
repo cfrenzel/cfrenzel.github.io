@@ -50,7 +50,12 @@
                {% include menu-header.html %}
             </ul>
             <ul class="navbar-nav ml-auto d-flex align-items-center">
-                {% include search-lunr.html %}
+                <li>
+                    {% include search-lunr.html %}
+                </li>
+                <li>
+                    <a href="{{ site.baseurl }}/feed.xml"><i class="fas fa-rss-square" style="font-size: 1.5rem;padding-left: 12px;"></i></a>
+                </li>
             </ul>
         </div>
     </div>
