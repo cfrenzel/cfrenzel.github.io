@@ -50,7 +50,7 @@
             {% endfor %} -->
             {% for tag in sorted-tags %}
             <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="{{site.baseurl}}/categories.html#{{ tag[0] | slugify }}">{{ tag[0] }}</a>
+                   <a class="sscroll tag smoothscroll bg-highlight" href="{{site.baseurl}}/tag/{{ tag[0] | slugify }}/">{{ tag[0] }}</a>
                 </li>
            {% endfor %}
             
