@@ -23,7 +23,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-paginate
   - jekyll-seo-tag
-  - jekyll/tagging
+  #- jekyll/tagging
   
 authors:
     camron:
@@ -56,9 +56,9 @@ highlighter: rouge
 # Paginate
 paginate: 10
 
-# Tagging
+# Tagging (/_pluging tags.rb/site.rb )
 tag_page_layout: tag-page
-tag_page_dir: tag
+tag_page_dir: tags
 
 
 # Exclude metadata and development time dependencies (like Grunt plugins)
