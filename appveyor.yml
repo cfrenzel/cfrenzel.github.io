@@ -1,5 +1,5 @@
 version: '{build}'
-image: Visual Studio 2019
+image: ubuntu
 environment:
   access_token:
       secure: XnBi8Mi7PoisgrK4u76B1JxFeZlCgS9VeKWeVnJHrzFqXzfXGhtHexcLYYIfF4eL
@@ -20,5 +20,13 @@ deploy_script:
   - ps: Add-Content "$HOME\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git config --global user.email "$($env:access_token)"
   - git config --global user.name "cfrenzel"
-  - git clone https://github.com/cfrenzel/cfrenzel.github.io.git current_master
-  - git subtree push -f --prefix=_site https://github.com/cfrenzel/cfrenzel.github.io.git master
+  - cd _site
+  - git checkout master || git checkout --orphan master
+  - cd ..
+  - rm -rf _site/**/* || exit 0
+  - bundle install
+  - bundle exec jekyll build
+  - cd _site
+  - git add -A .
+  - git commit -m "Deploy to GitHub Pages: ${CI_COMMIT_ID} --skip-ci"
+  - git push origin master
