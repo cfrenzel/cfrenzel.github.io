@@ -62,7 +62,8 @@ pre.highlight{
 .sidebar-label span{
 	color:#bbb;
 	font-size:12px;
-
+	display: block;
+    clear: both;
 }
 .sidebar-label hr{
 	margin:4px 0 12px 0;
