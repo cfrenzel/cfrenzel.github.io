@@ -21,7 +21,7 @@ build_script:
   - git checkout master || git checkout --orphan master
   - cd ..
   - rm -rf _artifacts/* || exit 0
-  - cp -r _site _artifacts/
+  - cp -r _site/. _artifacts/
   - touch _artifacts/.nojekyll
   - echo "cfrenzel.com" > _artifacts/CNAME
 
