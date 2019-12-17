@@ -5,19 +5,26 @@ environment:
       secure: XnBi8Mi7PoisgrK4u76B1JxFeZlCgS9VeKWeVnJHrzFqXzfXGhtHexcLYYIfF4eL
   git_email: 
       secure: y9vsgCXsUOccjaCutoaKhoi3f5Vhs5bmOy6i4Tinbds=
+cache:
+  - vendor/bundle
 install:
-- gem install bundler
-- gem install jekyll
+  - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
+  - bundle config --local path vendor/bundle
+  - bundle install
+  #- gem install bundler
+  #- gem install jekyll
 
 pull_requests:
   do_not_increment_build_number: true
 branches:
   only:
-  - master
+  - src
 nuget:
   disable_publish_on_pr: true
 test: off
 build_script:
+  - ruby --version
+  - echo $PATH
   - cd _site
   - git checkout master || git checkout --orphan master
   - cd ..
@@ -25,6 +32,7 @@ build_script:
   - bundle install
   - bundle exec jekyll build
   - touch _site/.nojekyll
+  - echo "cfrenzel.com" > _site/CNAME
 
 deploy_script:
   - git config --global credential.helper store
@@ -33,5 +41,5 @@ deploy_script:
   - git config --global user.name "cfrenzel"
   - cd _site
   - git add -A .
-  - git commit -m "Deploy to GitHub Pages: ${CI_COMMIT_ID} --skip-ci"
+  - git commit -m "Deploy to GitHub Pages: $APPVEYOR_BUILD_VERSION" --skip-ci
   - git push origin master
