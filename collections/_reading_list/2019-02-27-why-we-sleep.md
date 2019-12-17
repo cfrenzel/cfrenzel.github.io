@@ -8,4 +8,4 @@ audible: https://www.audible.com/pd/Why-We-Sleep-Audiobook/B0752ZQR33
 tags: [featured]
 ---
 
-An accessible dive into the current state of sleep science that will have making changes immediately.  You'll never think of sleep the same way again.  
+An accessible dive into the current state of sleep science that will have you making changes immediately.  You'll never think of sleep the same way again.  
