@@ -15,11 +15,12 @@ nuget:
   disable_publish_on_pr: true
 test: off
 build_script:
+  - rvm rvmrc warning ignore allGemfiles
   - mkdir _artifacts
   - cd _artifacts
   - git checkout master || git checkout --orphan master
   - cd ..
-  - cp -r _site/ _artifacts/
+  - cp -r _site _artifacts/
   - touch _artifacts/.nojekyll
   - echo "cfrenzel.com" > _artifacts/CNAME
 
