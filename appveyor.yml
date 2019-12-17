@@ -15,21 +15,20 @@ nuget:
   disable_publish_on_pr: true
 test: off
 build_script:
-  - cp -r _site _artifacts
-  - cd _site
+  - mkdir _artifacts
+  - cd _artifacts
   - git checkout master || git checkout --orphan master
   - cd ..
-  - rm -rf _site/**/* || exit 0
-  - cp -R _artifacts _site
-  - touch _site/.nojekyll
-  - echo "cfrenzel.com" > _site/CNAME
+  - cp -r _site _artifacts
+  - touch _artifacts/.nojekyll
+  - echo "cfrenzel.com" > _artifacts/CNAME
 
 deploy_script:
   - git config --global credential.helper store
   - ps: Add-Content "$HOME\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git config --global user.email "$($env:access_token)"
   - git config --global user.name "cfrenzel"
-  - cd _site
+  - cd _artifacts
   - git add -A .
   - git commit -m "Deploy to GitHub Pages - $APPVEYOR_BUILD_VERSION"
   - git push origin master
