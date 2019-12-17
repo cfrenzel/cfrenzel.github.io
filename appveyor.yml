@@ -1,0 +1,24 @@
+version: '{build}'
+image: Visual Studio 2019
+environment:
+  access_token:
+      secure: XnBi8Mi7PoisgrK4u76B1JxFeZlCgS9VeKWeVnJHrzFqXzfXGhtHexcLYYIfF4eL
+  git_email: 
+      secure: y9vsgCXsUOccjaCutoaKhoi3f5Vhs5bmOy6i4Tinbds=
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - master
+nuget:
+  disable_publish_on_pr: true
+test: off
+build_script:
+ - touch _site/.nojekyll
+deploy_script:
+  - git config --global credential.helper store
+  - ps: Add-Content "$HOME\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - git config --global user.email "$($env:access_token)"
+  - git config --global user.name "cfrenzel"
+  - git clone https://github.com/cfrenzel/cfrenzel.github.io.git current_master
+  - git subtree push -f --prefix=_site https://github.com/cfrenzel/cfrenzel.github.io.git master

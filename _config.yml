@@ -9,6 +9,9 @@ email: 'cfrenzel@gmail.com'
 mailchimp-list: ''
 highlighter: rouge
 
+# make it to where we can prebuild out site and host it on github with the source
+#destination: docs 
+
 include: ["_pages"]
 permalink: /:title/
 
@@ -23,7 +26,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-paginate
   - jekyll-seo-tag
-  #- jekyll/tagging
+  - jekyll/tagging
   
 authors:
     camron:
@@ -56,10 +59,10 @@ highlighter: rouge
 # Paginate
 paginate: 10
 
-# Tagging (/_pluging tags.rb/site.rb )
+# Tagging
 tag_page_layout: tag-page
 tag_page_dir: tags
 
 
 # Exclude metadata and development time dependencies (like Grunt plugins)
-exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules]
+exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules, appveyor.yml]
