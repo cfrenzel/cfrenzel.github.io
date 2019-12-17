@@ -21,7 +21,18 @@ pre.highlight{
  }
  .taglist li{
 	 margin-bottom:3px;
+	 display:block;
+	 float:left;
+	 margin-right:3px;
  }
+ @media (min-width:768px) {
+	.taglist li{
+		display:block;
+		float:left;
+		float:none;
+	}
+}
+
  .bg-highlight{
 	 padding: 2px 7px;
 }
