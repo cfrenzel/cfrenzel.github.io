@@ -8,12 +8,12 @@ environment:
 cache:
   - vendor/bundle
 install:
-  - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
+  #- set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
+  - gem install bundler
+  - gem install jekyll
   - bundle config --local path vendor/bundle
   - bundle install
-  #- gem install bundler
-  #- gem install jekyll
-
+  
 pull_requests:
   do_not_increment_build_number: true
 branches:
