@@ -33,10 +33,11 @@ plugins:
 authors:
     camron:
       name:           Camron Frenzel
-      site:           https://cfrenzel.github.io
+      site:           https://cfrenzel.com
       avatar:         assets/images/avatar-cam.jpg
       email:          cfrenzel@gmail.com
       picture:        assets/images/avatar-cam.jpg
+      github:         https://github.com/cfrenzel
 
 # Defaults
 defaults:

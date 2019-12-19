@@ -88,7 +88,14 @@ comments: true
 					<div class="col-md-10">		
 						<h6 class="font-weight-bold">Written by {{ author.name }} {% if author.twitter %}<span><a target="_blank" href="{{ author.twitter }}" class="btn btn-outline-success btn-sm btn-round ml-2">Follow</a></span>{% endif %}</h6>
 						{{ page.date | date: '%b %d, %Y' }}
-                        {{ author.bio }}					
+						{% if author.github %}<br/>
+							<span>
+								<a target="_blank" href="{{ author.github }}" style="color:inherit">
+								  <i class="fab fa-github"></i> github.com/cfrenzel
+								</a>
+								</span>
+						{% endif %}
+						{{ author.bio }}					
 					</div>
 				</div>				
                 {% endif %}
