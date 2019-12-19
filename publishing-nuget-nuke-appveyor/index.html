@@ -17,11 +17,11 @@
 <link rel="canonical" href="http://localhost:4000/publishing-nuget-nuke-appveyor/" />
 <meta property="og:url" content="http://localhost:4000/publishing-nuget-nuke-appveyor/" />
 <meta property="og:site_name" content="cfrenzel" />
-<meta property="og:image" content="http://localhost:4000/assets/images/nuke-appveyor-build.png" />
+<meta property="og:image" content="http://localhost:4000/assets/images/nuke-appveyor-build-image.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-12-17T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"This article builds on concepts discussed by Andrew Lock, Jimmy Bogard and Georg Dangl. Here we’re going use Nuke to make build, packaging and publishing even nicer!!!","image":"http://localhost:4000/assets/images/nuke-appveyor-build.png","@type":"BlogPosting","url":"http://localhost:4000/publishing-nuget-nuke-appveyor/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"camron"},"headline":"Publishing .NET Core NuGet Packages with Nuke and AppVeyor","dateModified":"2019-12-17T00:00:00-05:00","datePublished":"2019-12-17T00:00:00-05:00","author":{"@type":"Person","name":"camron"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/publishing-nuget-nuke-appveyor/"},"@context":"http://schema.org"}</script>
+{"description":"This article builds on concepts discussed by Andrew Lock, Jimmy Bogard and Georg Dangl. Here we’re going use Nuke to make build, packaging and publishing even nicer!!!","@type":"BlogPosting","image":"http://localhost:4000/assets/images/nuke-appveyor-build-image.png","url":"http://localhost:4000/publishing-nuget-nuke-appveyor/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"camron"},"headline":"Publishing .NET Core NuGet Packages with Nuke and AppVeyor","dateModified":"2019-12-17T00:00:00-05:00","datePublished":"2019-12-17T00:00:00-05:00","author":{"@type":"Person","name":"camron"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/publishing-nuget-nuke-appveyor/"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -299,7 +299,7 @@ function lunr_search(term) {
 				</div>
                 <!-- 
 				<div class="col-md-6 pr-0 align-self-center">
-					<img class="rounded" src="/assets/images/nuke-appveyor-build.png" alt="Publishing .NET Core NuGet Packages with Nuke and AppVeyor">
+					<img class="rounded" src="/assets/images/nuke-appveyor-build-image.png" alt="Publishing .NET Core NuGet Packages with Nuke and AppVeyor">
 				</div>
                  -->
 			</div>
@@ -335,7 +335,7 @@ function lunr_search(term) {
 <pre>
 &gt; nuke :setup
 </pre>
-<p><img src="/assets/images/nuke_setup.png" alt="nuke setup" title="nuke setup" height="400" /></p>
+<p><img src="/assets/images/nuke-setup-screen.png" alt="nuke setup" title="nuke setup" height="400" /></p>
 <div class="alert alert-warning" role="alert">
   <strong>Warning:</strong> For me the Nuke build project defaulted to .NET Core 3.0.  This isn't necessarily a problem, but it's worth noting.  This was true when buidling an app on .NET Core 2.2; so it's a bit odd for my build environment to require .Net Core 3.0<br />  
   TODO:/// Figure out Nuke's logic for framework selection and see if it's configurable     
@@ -362,7 +362,7 @@ function lunr_search(term) {
 <pre>
 &gt;  .\build.ps1 Compile
 </pre>
-<p><img src="/assets/images/nuke_compile.png" alt="nuke compile" title="nuke compile" height="600" /></p>
+<p><img src="/assets/images/nuke-compile-screen.png" alt="nuke compile" title="nuke compile" height="600" /></p>
 
 <p><strong>Success!</strong> I’ll admit that compiling a project isn’t that impressive, but we’re now scripting in C#.  Let’s take it a step further and make a NuGet package.</p>
 
