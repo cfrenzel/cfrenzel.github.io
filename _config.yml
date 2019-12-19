@@ -1,6 +1,7 @@
 # Site
 name: 'cfrenzel'
-description: 'blog of cfrenzel'
+description: 'Blog of Camron Frenzel'
+url: https://cfrenzel.com
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
@@ -35,6 +36,7 @@ authors:
       site:           https://cfrenzel.github.io
       avatar:         assets/images/avatar-cam.jpg
       email:          cfrenzel@gmail.com
+      picture:        assets/images/avatar-cam.jpg
 
 # Defaults
 defaults:
