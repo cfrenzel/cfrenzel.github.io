@@ -3,7 +3,7 @@ layout: post
 title:  "Publishing .NET Core NuGet Packages with Nuke and AppVeyor"
 author: camron
 categories: [development]
-image: assets/images/nuke-appveyor-build.png
+image: assets/images/nuke-appveyor-build-image.png
 tags: [featured, appveyor, nuke, dotnet, nuget]
 ---
 
@@ -26,7 +26,7 @@ Let's jump in.
 <pre>
 > nuke :setup
 </pre>
-<img src="/assets/images/nuke_setup.png" alt="nuke setup" title="nuke setup" height="400"/>
+<img src="/assets/images/nuke-setup-screen.png" alt="nuke setup" title="nuke setup" height="400"/>
 <div class="alert alert-warning" role="alert">
   <strong>Warning:</strong> For me the Nuke build project defaulted to .NET Core 3.0.  This isn't necessarily a problem, but it's worth noting.  This was true when buidling an app on .NET Core 2.2; so it's a bit odd for my build environment to require .Net Core 3.0<br/>  
   TODO:/// Figure out Nuke's logic for framework selection and see if it's configurable     
@@ -43,7 +43,7 @@ You'll notice a new project in your solution named <code>_build</code>.  Take no
 <pre>
 >  .\build.ps1 Compile
 </pre>
-<img src="/assets/images/nuke_compile.png" alt="nuke compile" title="nuke compile" height="600"/>
+<img src="/assets/images/nuke-compile-screen.png" alt="nuke compile" title="nuke compile" height="600"/>
 
 **Success!** I'll admit that compiling a project isn't that impressive, but we're now scripting in C#.  Let's take it a step further and make a NuGet package.
 
