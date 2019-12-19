@@ -8,7 +8,7 @@ comments: true
 		<div class="h-100 tofront">
 			<div class="row">
 				<div class="col-md-10">
-					<p class="">
+					<p>
                         <span class="catlist">
 						{% for category in page.categories %}
                           <a class="sscroll category-text" href="{{site.baseurl}}/categories.html#{{ category | downcase }}">{{ category | downcase }}</a><span class="sep"> / </span>
@@ -18,7 +18,8 @@ comments: true
                         {% endfor %}
                         </span>
 					</p>
-					<h1 class="article-headline">{{ page.title }}</h1>
+					<h1 class="article-headline">{{ page.title }}
+					</h1>
 					<small class="ml-3 text-muted">
 							<i class="far fa-clock"></i>{% include meta-read-time.html %} 
 							: <strong>{{author.name}}</strong>
@@ -33,7 +34,7 @@ comments: true
 					</div> -->
 				</div>
                 <!-- {% if page.image %}
-				<div class="col-md-6 pr-0 align-self-center">
+				<div class="col-md-2 pr-0 align-self-center">
 					<img class="rounded" src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}">
 				</div>
                 {% endif %} -->
