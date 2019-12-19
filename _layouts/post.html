@@ -14,7 +14,7 @@ comments: true
                           <a class="sscroll category-text" href="{{site.baseurl}}/categories.html#{{ category | downcase }}">{{ category | downcase }}</a><span class="sep"> / </span>
 						{% endfor %}
 						{% for tag in page.tags %}
-                          <a class="sscroll tag-text" href="{{site.baseurl}}/tags.html#{{ tag | slugify }}">{{ tag }}</a><span class="sep"> / </span>
+                          <a class="sscroll tag-text" href="{{site.baseurl}}/tags/{{ tag | slugify }}">{{ tag }}</a><span class="sep"> / </span>
                         {% endfor %}
                         </span>
 					</p>

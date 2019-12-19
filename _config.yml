@@ -14,6 +14,7 @@ highlighter: rouge
 
 include: ["_pages"]
 permalink: /:title/
+show_drafts: false
 
 # Collections
 collections_dir: collections
@@ -65,4 +66,4 @@ tag_page_dir: tags
 
 
 # Exclude metadata and development time dependencies (like Grunt plugins)
-exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules, appveyor.yml]
+exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules, appveyor.yml, docker-compose.yml]
