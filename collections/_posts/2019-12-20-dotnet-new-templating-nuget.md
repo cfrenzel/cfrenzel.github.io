@@ -3,8 +3,8 @@ layout: post
 title:  "Quickly Create Your Own .NET Code Templates And Use Them From Anywhere"
 author: camron
 categories: [development]
-image: assets/images/splash_benjamin-catapane.jpg
-tags: []
+image: assets/images/dotnet-new.png
+tags: [featured, dotnet, automation, nuget, appveyor]
 ---
 
 Whether you need to throw together a quick console app or scaffold an enterprise solution, it can be a real time suck just creating, naming and referencing projects.  Setting up boilerplate logging, dependency injection, data access, messaging, gulp and other tools can send you hunting through previous work to copy and paste code.  Let's put an end to all that once and for all with less than an hour of work using <code>dotnet new</code> templating! The advantages of this approach include:

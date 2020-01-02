@@ -1,4 +1,361 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-02T15:20:19-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">cfrenzel</title><subtitle>Blog of Camron Frenzel</subtitle><entry><title type="html">Publishing .NET Core NuGet Packages with Nuke and AppVeyor</title><link href="http://localhost:4000/publishing-nuget-nuke-appveyor/" rel="alternate" type="text/html" title="Publishing .NET Core NuGet Packages with Nuke and AppVeyor" /><published>2019-12-17T00:00:00-05:00</published><updated>2019-12-17T00:00:00-05:00</updated><id>http://localhost:4000/publishing-nuget-nuke-appveyor</id><content type="html" xml:base="http://localhost:4000/publishing-nuget-nuke-appveyor/">&lt;p&gt;This article builds on concepts discussed by &lt;a href=&quot;https://andrewlock.net/publishing-your-first-nuget-package-with-appveyor-and-myget/&quot;&gt;Andrew Lock&lt;/a&gt;, &lt;a href=&quot;https://lostechies.com/jimmybogard/2016/05/24/my-oss-cicd-pipeline/&quot;&gt;Jimmy Bogard&lt;/a&gt; and &lt;a href=&quot;https://blog.dangl.me/archive/escalating-automation-the-nuclear-option/&quot;&gt;Georg Dangl&lt;/a&gt;. Here we’re going use &lt;a href=&quot;https://nuke.build/&quot;&gt;Nuke&lt;/a&gt; to make build, packaging and publishing even nicer!!!&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://cfrenzel.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cfrenzel.com/" rel="alternate" type="text/html" /><updated>2020-01-02T15:30:07-05:00</updated><id>https://cfrenzel.com/feed.xml</id><title type="html">cfrenzel</title><subtitle>Blog of Camron Frenzel</subtitle><entry><title type="html">Quickly Create Your Own .NET Code Templates And Use Them From Anywhere</title><link href="https://cfrenzel.com/dotnet-new-templating-nuget/" rel="alternate" type="text/html" title="Quickly Create Your Own .NET Code Templates And Use Them From Anywhere" /><published>2019-12-20T00:00:00-05:00</published><updated>2019-12-20T00:00:00-05:00</updated><id>https://cfrenzel.com/dotnet-new-templating-nuget</id><content type="html" xml:base="https://cfrenzel.com/dotnet-new-templating-nuget/">&lt;p&gt;Whether you need to throw together a quick console app or scaffold an enterprise solution, it can be a real time suck just creating, naming and referencing projects.  Setting up boilerplate logging, dependency injection, data access, messaging, gulp and other tools can send you hunting through previous work to copy and paste code.  Let’s put an end to all that once and for all with less than an hour of work using &lt;code&gt;dotnet new&lt;/code&gt; templating! The advantages of this approach include:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- Use a tool that's already on any development machine       
+- No new templating language to learn
+- Use runnable Solution/Project/Files as templates
+- Bundle many templates into a single distributable package
+- Access templates from any machine with a single command
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4&gt;Let's get started:&lt;/h4&gt;
+
+&lt;p&gt;Our goal is to be able to easily create and distribute custom templates to any machine; so let’s first take a look at what templates already exist on our machine:&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt; dotnet new &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;pre&gt;
+Templates                                         Short Name               Language          Tags
+----------------------------------------------------------------------------------------------------------------------------------
+Console Application                               console                  [C#], F#, VB      Common/Console
+Class library                                     classlib                 [C#], F#, VB      Common/Library
+&lt;/pre&gt;
+
+&lt;p&gt;You should see a list of templates longer but similar to above.  Our custom templates will show up in this list when we’re done.  To create a new project from the template named &lt;code&gt;console&lt;/code&gt; in the list above we can type:&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;  dotnet new console &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; SampleFromTemplate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This will create a new folder with a console app named &lt;code&gt;SampleFromTemplate&lt;/code&gt;.  It’s ready to go with nuget packages restored and the namespaces set to &lt;em&gt;SampleFromTemplate&lt;/em&gt;.&lt;/p&gt;
+&lt;pre&gt;
+SampleFromTemplate
+    └─── SampleFromTemplate.csproj
+    └─── Program.cs
+    └─── /obj
+&lt;/pre&gt;
+
+&lt;p&gt;To begin creating custom templates with &lt;code&gt;dotnet new&lt;/code&gt; simply create a normal project or solution (or just one or more files) that represents your boilerplate code for a given scenario.  That’s almost all there is to it.  Adding a configuration file to setup some metadata and behavior will result in a resuable template.  The template folder structure for a simple console app project will look something like this:&lt;/p&gt;
+
+&lt;pre&gt;
+└───mycustomtemplate
+    └─── Templating.ConsoleApp.csproj
+    └─── Program.cs
+    └─── /.template_config
+        └───  template.json
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Start with any existing project and from the project root folder&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;&amp;gt;&lt;/span&gt;  &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; .template_config
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;alert alert-warning&quot;&gt;
+ You have control over whether the generated output of your template is placed in a new folder or just dumped in the output location.  If you want everything inside a folder then include the folder at the top level of the template beside the &lt;code&gt;.template_config&lt;/code&gt; folder.  Otherwise you can leave it up to the user to specify on the command line using the &lt;code&gt;-o&lt;/code&gt; option.  
+&lt;/div&gt;
+&lt;div class=&quot;alert alert-warning&quot;&gt;
+If you want to create empty folders inside your template such as &lt;code&gt;/src&lt;/code&gt; &lt;code&gt;/test&lt;/code&gt; &lt;code&gt;/doc&lt;/code&gt; &lt;code&gt;/build&lt;/code&gt; &lt;code&gt;/migrations&lt;/code&gt;.  For now you will need to place a file named &lt;code&gt;-.-&lt;/code&gt; inside the folder otherwise the empty folder will be ignored in the output
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Add a &lt;code&gt;template.json&lt;/code&gt; to the &lt;code&gt;.template_config&lt;/code&gt; folder&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;$schema&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://json.schemastore.org/template&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Camron Frenzel&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;classifications&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cfrenzel&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;core&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;console&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;tags&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;language&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;C#&quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;identity&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;demo.console&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;demo.console_2.2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;shortName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;dm-console-2.2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;sourceName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Templating&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;sources&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;modifiers&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;exclude&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.vs/**&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;.template_config/**&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;identity&lt;/code&gt; a unique name for the template&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;name&lt;/code&gt; for display purposes&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;shortName&lt;/code&gt; what users will type to specify your template&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;sources -&amp;gt; exclude:&lt;/code&gt; This is a little trick to keep some unwanted files out of the template&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;sourceName&lt;/code&gt; the name in the source tree to replace with the user specified name (using &lt;code&gt;-n&lt;/code&gt; or &lt;code&gt;--name&lt;/code&gt;).&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;&lt;code&gt;sourceName&lt;/code&gt; is important!&lt;/strong&gt;.  &lt;code&gt;dotnet new&lt;/code&gt; will replace all the folders/files/namespaces/etc.. containing this name with whatever the user passes in on the command line.  For example: If I’m using a convention such as&lt;/p&gt;
+    &lt;pre&gt;
+  └─── Templating.sln
+  └─── /src
+      └─── /Templating.ConsoleApp
+          └─── Templating.ConsoleApp.csproj
+      └─── /Templating.Domain
+          └─── Templating.Domain.csproj
+      └─── /Templating.Application
+          └─── Templating.Application.csproj
+  &lt;/pre&gt;
+
+    &lt;p&gt;Then passing in &lt;code&gt;-n Demo&lt;/code&gt;  will produce:&lt;/p&gt;
+    &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;  &amp;gt;&lt;/span&gt;  dotnet new demo.console_2.2 &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; Demo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;pre&gt;
+  └─── Demo.sln
+  └─── /src
+      └─── /Demo.ConsoleApp
+          └─── Demo.ConsoleApp.csproj
+      └─── /Demo.Domain
+          └─── Demo.Domain.csproj
+      └─── /Demo.Application
+          └─── Demo.Application.csproj
+    
+   namespaces: Templating.ConsoleApp -&amp;gt; Demo.ConsoleApp
+&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;At this point you should be comfortable with these concepts
+    &lt;ul&gt;
+      &lt;li&gt;a template is a normal solution/project/file&lt;/li&gt;
+      &lt;li&gt;add a &lt;code&gt;.template_config&lt;/code&gt; folder with a &lt;code&gt;template.config&lt;/code&gt; file in it to configure a template&lt;/li&gt;
+      &lt;li&gt;the user will pass in a –name &lt;em&gt;MyApp&lt;/em&gt; to the template that will replace the configured &lt;code&gt;sourceName&lt;/code&gt; text in all folders/solutions/projects/namespaces&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;alert alert-primary&quot;&gt;
+&lt;strong&gt;Tip!&lt;/strong&gt; To have nuget restore automatically - add this to your template.config
+&lt;pre&gt;
+&quot;symbols&quot;: {
+    &quot;skipRestore&quot;: {
+      &quot;type&quot;: &quot;parameter&quot;,
+      &quot;datatype&quot;: &quot;bool&quot;,
+      &quot;description&quot;: &quot;If specified, skips the automatic restore of the project on create.&quot;,
+      &quot;defaultValue&quot;: &quot;false&quot;
+    }
+  },
+  &quot;postActions&quot;: [
+    {
+      &quot;condition&quot;: &quot;(!skipRestore)&quot;,
+      &quot;description&quot;: &quot;Restore NuGet packages required by this project.&quot;,
+      &quot;manualInstructions&quot;: [
+        { &quot;text&quot;: &quot;Run 'dotnet restore'&quot; }
+      ],
+      &quot;actionId&quot;: &quot;210D431B-A78B-4D2F-B762-4ED3E3EA9025&quot;,
+      &quot;continueOnError&quot;: true
+    }
+  ]
+  &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;alert alert-danger&quot;&gt;
+&lt;strong&gt;Issue!&lt;/strong&gt;  If your template creates one or more projects, often you would like the generated projects to be automatically added to an existing solution.  This is supported, but I haven't had any luck with it.  The essence of the problem seems to be a bug rendering the output project path/name.  
+
+&lt;pre&gt;
+  &quot;primaryOutputs&quot;: [
+    { &quot;path&quot;: &quot;SolutionName.ConsoleApp/SolutionName.ConsoleApp.csproj&quot; }
+  ],
+
+  &quot;postActions&quot;: [
+    {
+      &quot;description&quot;: &quot;Add project to solution&quot;,
+      &quot;manualInstructions&quot;: [],
+      &quot;primaryOutputIndexes&quot;: &quot;0&quot;,
+      &quot;actionId&quot;: &quot;D396686C-DE0E-4DE6-906D-291CD29FC5DE&quot;,
+      &quot;continueOnError&quot;: true
+    }
+  ]
+&lt;/pre&gt; 
+  &lt;a href=&quot;https://github.com/dotnet/templating/issues/1489&quot;&gt;https://github.com/dotnet/templating/issues/1489&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If you haven’t created your own template at this point you can follow along by downloading a console app template with logging/DI/configuration &lt;a href=&quot;https://github.com/cfrenzel/dotnet-new-templates-2.2/tree/master/templates/ConsoleApp&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4&gt;Installing a template&lt;/h4&gt;
+
+&lt;p&gt;We could install our template locally from the template root folder.&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;dotnet new -i .
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;List the installed templates and you should see your template listed&lt;/p&gt;
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;dotnet new -l
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can use it by passing in it’s &lt;code&gt;shortName&lt;/code&gt; and provide a name&lt;/p&gt;
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;    &amp;gt;&lt;/span&gt;  dotnet new &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;shortname&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; DemoApp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To remove your template&lt;/p&gt;
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;dotnet new -u
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;You should see your template along with an &lt;code&gt;Uninstall command:&lt;/code&gt;.  This command will come in handy as things can get confusing when managing multiple versions of your templates and installing them from different sources.&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt; dotnet new -u C:\temptemplate\temptemplate
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Not bad, but the workflow leaves a lot to be desired.  It would be a pain to manage even a modest number of templates using this method.&lt;/p&gt;
+
+&lt;h4&gt;Packaging templates&lt;/h4&gt;
+
+&lt;p&gt;The &lt;code&gt;dotnet new&lt;/code&gt; templating tool supports installing templates from nuget packages locally or in remote repositories.  Multiple templates can be included in a single package, which allows adding and removing collections of templates from the internet with a single command.&lt;/p&gt;
+
+&lt;p&gt;Packaging templates took some tinkering for me; so let’s get straight to what works by creating a special project that will help us get all of our templates into a single package.  The structure of our multi-template solution will look like this:&lt;/p&gt;
+
+&lt;pre&gt;
+ └─── /my-dotnet-templates   
+      └─── my-dotnet-templates.sln
+      └─── /templates
+           └─── Directory.Build.props //metadata for package
+           └─── templates.csproj
+           └─── /ConsoleApp //template 1
+                └─── Templating.sln
+                └─── /.template_config
+                     └───template.json
+                └─── /Templating.ConsoleApp
+                     └─── Templating.ConsoleApp.csproj
+           └─── /WebApp //template 2
+                └─── Templating.sln
+                └─── /.template_config
+                     └───template.json
+                └─── /Templating.WebbApp
+                     └─── Templating.WebApp.csproj
+           
+&lt;/pre&gt;
+
+&lt;p&gt;The idea is that you have a solution with a /templates folder and a special project: &lt;code&gt;template.csproj&lt;/code&gt; that will aid in building the multi-template package. Within the 
+/templates folder you will have a folder for each template.  The folder for each template should contain everything you need to develop and test the template. You won’t be able to run the template from our special &lt;code&gt;templates.csproj&lt;/code&gt; so it’s nice to have a seperate solution for running/editing each template.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;You can start by creating &lt;code&gt;templates.csproj&lt;/code&gt; as a console app.  Open the .csproj file and edit it to look like this:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;Project&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Sdk=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Microsoft.NET.Sdk&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;PropertyGroup&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;PackageType&amp;gt;&lt;/span&gt;Template&lt;span class=&quot;nt&quot;&gt;&amp;lt;/PackageType&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;TargetFramework&amp;gt;&lt;/span&gt;netcoreapp2.2&lt;span class=&quot;nt&quot;&gt;&amp;lt;/TargetFramework&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;PackageId&amp;gt;&lt;/span&gt;cfrenzel-dotnet-new-templates-2.2&lt;span class=&quot;nt&quot;&gt;&amp;lt;/PackageId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Title&amp;gt;&lt;/span&gt;cfrenzel dotnet-new-templates&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Title&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;IncludeContentInPack&amp;gt;&lt;/span&gt;true&lt;span class=&quot;nt&quot;&gt;&amp;lt;/IncludeContentInPack&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;IncludeBuildOutput&amp;gt;&lt;/span&gt;false&lt;span class=&quot;nt&quot;&gt;&amp;lt;/IncludeBuildOutput&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;ContentTargetFolders&amp;gt;&lt;/span&gt;content&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ContentTargetFolders&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/PropertyGroup&amp;gt;&lt;/span&gt;
+
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;ItemGroup&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Content&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Include=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ConsoleApp\**&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Exclude=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ConsoleApp\SolutionName.sln;ConsoleApp\**\bin\**;ConsoleApp\**\obj\**;ConsoleApp\**\.vs\**&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Content&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Include=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;EFCore.MigrationProjects\**&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Exclude=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;EFCore.MigrationProjects\**\bin\**;EFCore.MigrationProjects\**\obj\**;EFCore.MigrationProjects\**\.vs\**&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Content&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Include=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Solution\**&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Exclude=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Solution\**\bin\**;Solution\**\obj\**;Solution\**\.vs\**&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Compile&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Remove=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;**\*&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ItemGroup&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Project&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;PackageType&amp;gt;Template&amp;lt;/PackageType&amp;gt;&lt;/code&gt; - set special package type for project&lt;/li&gt;
+  &lt;li&gt;For each template in our package we are adding a &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Content&amp;gt;&lt;/code&gt; tag that specifies which files to include and exclude
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Content Include=&quot;ConsoleApp\**&quot;&lt;/code&gt; - include everything from our /ConsoleApp folder&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Exclude=&quot;ConsoleApp\Templating.sln;ConsoleApp\**\bin\**;ConsoleApp\**\obj\**;ConsoleApp\**\.vs\**&quot; /&amp;gt;&lt;/code&gt; - exclude the solution file and bin/obj folders&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;Compile Remove=&quot;**\*&quot; /&amp;gt;&lt;/code&gt; - we’re not interested in the output of the compiled project&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;We can specify metadata for the package in &lt;code&gt;Directory.Build.props&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;Project&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;PropertyGroup&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Authors&amp;gt;&lt;/span&gt;Camron Frenzel&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Authors&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;RepositoryUrl&amp;gt;&lt;/span&gt;https://github.com/cfrenzel/dotnet-new-templates-2.2.git&lt;span class=&quot;nt&quot;&gt;&amp;lt;/RepositoryUrl&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;PackageProjectUrl&amp;gt;&lt;/span&gt;https://github.com/cfrenzel/dotnet-new-templates-2.2&lt;span class=&quot;nt&quot;&gt;&amp;lt;/PackageProjectUrl&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Description&amp;gt;&lt;/span&gt;dotnet new templates for core 2.2&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Description&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;PackageTags&amp;gt;&lt;/span&gt;template dotnet console migration web&lt;span class=&quot;nt&quot;&gt;&amp;lt;/PackageTags&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;PackageLicense&amp;gt;&amp;lt;/PackageLicense&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Version&amp;gt;&lt;/span&gt;1.0.0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Version&amp;gt;&lt;/span&gt;   
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/PropertyGroup&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Project&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Now we can create our nuget package using &lt;code&gt;templates.csproj&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;dotnet pack .\templates\templates.csproj -o .\artifacts\ --no-build
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And install all of our templates locally from our &lt;code&gt;.nupkg&lt;/code&gt; file&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;dotnet new -i .\artifacts\cfrenzel-dotnet-new-templates-2.2.1.0.0
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Find the &lt;code&gt;Uninstall command:&lt;/code&gt; to remove&lt;/p&gt;
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;dotnet new -u
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4&gt;Publish package for access online&lt;/h4&gt;
+
+&lt;p&gt;You can host your template .nupkg for free using my &lt;a href=&quot;https://www.myget.org/&quot;&gt;MyGet&lt;/a&gt; or make it official/perminent using &lt;a href=&quot;https://www.nuget.org/&quot;&gt;NuGet.org&lt;/a&gt;.  This can be as simple as typing&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;dotnet nuget push artifacts\**\*.nupkg -s &quot;https://www.myget.org/F/{youraccount}/api/v2/package&quot; -k {yourkey}
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then installing your templates from anywhere using&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;go&quot;&gt;dotnet new --install {yourpackagename}  --nuget-source https://www.myget.org/F/{youraccount}/api/v3/index.json
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;alert alert-primary&quot;&gt;
+  If you publish it to &lt;strong&gt;nuget.org&lt;/strong&gt; you don't even have to specify the package url!
+  dotnet new --install {yourpackagename}
+&lt;/div&gt;
+
+&lt;p&gt;-Since we’re pretty much one configuration file away from free continuous build and deployment, let’s setup &lt;a href=&quot;https://www.appveyor.com/&quot;&gt;AppVeyor&lt;/a&gt; to build and publish our template package every time we commit a change to the source code.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Save you code to &lt;a href=&quot;https://github.com&quot;&gt;Github&lt;/a&gt; or wherever&lt;/li&gt;
+  &lt;li&gt;Add an &lt;code&gt;appveyor.yml&lt;/code&gt; to build and publish template package to MyGet&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;version: '1.{build}'
+image: Visual Studio 2019
+environment:
+  MyGetApiKey:
+    secure: 56nW3KcP4naYX9mlsVEIKLj5xPdfmpt6lMALR6wQmorRQOaoUOtlwMZ2V0BtGTAM
+  NugetApiKey:
+    secure: /54XAunyBETRa1Fp/qSrwvebSnTAcHDO2OVZ+exMtQtOtrBzHKvp4RC1AB8RD2PQ
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - master
+nuget:
+  disable_publish_on_pr: true
+test: off
+build_script:
+  - dotnet restore 
+  - dotnet pack .\templates\templates.csproj -o .\artifacts\ --no-build
+deploy_script:
+  - ps: dotnet nuget push artifacts\**\*.nupkg -s &quot;https://www.myget.org/F/cfrenzel-ci/api/v2/package&quot; -k $env:MyGetApiKey
+ 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;After you link your AppVeyor project to your source repo, your template .nupkg will be updated in MyGet/Nuget every time you commit to master.&lt;/p&gt;
+
+&lt;h4&gt;Final Thoughts&lt;/h4&gt;
+&lt;p&gt;Though templating with &lt;code&gt;dotnet new&lt;/code&gt; has some more powerful features including:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;conditional logic&lt;/li&gt;
+  &lt;li&gt;custom parameters&lt;/li&gt;
+  &lt;li&gt;post actions&lt;/li&gt;
+  &lt;li&gt;multi-language&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/dotnet/templating/wiki/Reference-for-template.json&quot;&gt;see docs - template.json&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I really appreciate the simplicity of the tool.  You simply use what you’re already doing to make doing what you’re already doing faster.  No need to learn a new complex template language.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/cfrenzel/dotnet-new-templates-2.2&quot;&gt;full source code &lt;/a&gt; for this post.&lt;/p&gt;</content><author><name>camron</name></author><category term="featured" /><category term="dotnet" /><category term="automation" /><category term="nuget" /><category term="appveyor" /><summary type="html">Whether you need to throw together a quick console app or scaffold an enterprise solution, it can be a real time suck just creating, naming and referencing projects. Setting up boilerplate logging, dependency injection, data access, messaging, gulp and other tools can send you hunting through previous work to copy and paste code. Let’s put an end to all that once and for all with less than an hour of work using dotnet new templating! The advantages of this approach include:</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://cfrenzel.com/assets/images/dotnet-new.png" /></entry><entry><title type="html">Publishing .NET Core NuGet Packages with Nuke and AppVeyor</title><link href="https://cfrenzel.com/publishing-nuget-nuke-appveyor/" rel="alternate" type="text/html" title="Publishing .NET Core NuGet Packages with Nuke and AppVeyor" /><published>2019-12-17T00:00:00-05:00</published><updated>2019-12-17T00:00:00-05:00</updated><id>https://cfrenzel.com/publishing-nuget-nuke-appveyor</id><content type="html" xml:base="https://cfrenzel.com/publishing-nuget-nuke-appveyor/">&lt;p&gt;This article builds on concepts discussed by &lt;a href=&quot;https://andrewlock.net/publishing-your-first-nuget-package-with-appveyor-and-myget/&quot;&gt;Andrew Lock&lt;/a&gt;, &lt;a href=&quot;https://lostechies.com/jimmybogard/2016/05/24/my-oss-cicd-pipeline/&quot;&gt;Jimmy Bogard&lt;/a&gt; and &lt;a href=&quot;https://blog.dangl.me/archive/escalating-automation-the-nuclear-option/&quot;&gt;Georg Dangl&lt;/a&gt;. Here we’re going use &lt;a href=&quot;https://nuke.build/&quot;&gt;Nuke&lt;/a&gt; to make build, packaging and publishing even nicer!!!&lt;/p&gt;
 
 &lt;p&gt;I’ve been eking out build solutions using various Powershell based tools for years.  They serve their purpose, but I always dread getting familiar with the scripts again when I need to make a change.  I recently used &lt;a href=&quot;https://nuke.build/&quot;&gt;Nuke&lt;/a&gt; on a project and for the first time I feel like I didn’t waste any time fighting with it.&lt;/p&gt;
 
@@ -312,4 +669,4 @@ build_script:
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/cfrenzel/Eventfully/blob/master/build/Build.cs&quot;&gt;https://github.com/cfrenzel/Eventfully/blob/master/build/Build.cs&lt;/a&gt;
 &lt;a href=&quot;https://github.com/cfrenzel/Eventfully/blob/master/appveyor.yml&quot;&gt;https://github.com/cfrenzel/Eventfully/blob/master/appveyor.yml&lt;/a&gt;
-&lt;a href=&quot;https://github.com/cfrenzel/Eventfully&quot;&gt;https://github.com/cfrenzel/Eventfully&lt;/a&gt;&lt;/p&gt;</content><author><name>camron</name></author><category term="featured" /><category term="appveyor" /><category term="nuke" /><category term="dotnet" /><category term="nuget" /><summary type="html">This article builds on concepts discussed by Andrew Lock, Jimmy Bogard and Georg Dangl. Here we’re going use Nuke to make build, packaging and publishing even nicer!!!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/nuke-appveyor-build-image.png" /></entry></feed>
+&lt;a href=&quot;https://github.com/cfrenzel/Eventfully&quot;&gt;https://github.com/cfrenzel/Eventfully&lt;/a&gt;&lt;/p&gt;</content><author><name>camron</name></author><category term="featured" /><category term="appveyor" /><category term="nuke" /><category term="dotnet" /><category term="nuget" /><summary type="html">This article builds on concepts discussed by Andrew Lock, Jimmy Bogard and Georg Dangl. Here we’re going use Nuke to make build, packaging and publishing even nicer!!!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://cfrenzel.com/assets/images/nuke-appveyor-build-image.png" /></entry></feed>
