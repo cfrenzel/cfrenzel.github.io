@@ -13,9 +13,11 @@
 			{% endfor %}
 			<!-- <i class="fas fa-tag"></i>	 -->
 		{% for tag in post.tags %}
+			{% unless tag == "featured" %}
 			<!-- <a  class="tag badge badge-pill" href="{{site.baseurl}}/tag/{{ tag | slugify }}">{{ tag }}</a>-->
 			<a  class="tag-text" href="{{site.baseurl}}/tags/{{ tag | slugify }}">{{ tag }}</a>
-			{% endfor %}
+			{%endunless%}
+		{% endfor %}
 	</small>
 	<small class="text-muted">
 		{{ post.date | date: '%b %d, %Y' }}
