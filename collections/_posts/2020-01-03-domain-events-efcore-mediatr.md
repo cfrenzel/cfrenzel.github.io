@@ -4,7 +4,7 @@ title:  "Simple Domain Events with EFCore and MediatR"
 author: camron
 categories: [development]
 image: assets/images/book-Evans_2004_ddd.jpg
-tags: [featured, efcore, ddd, mediatR]
+tags: [featured, dotnet, efcore, ddd, mediatR]
 ---
 
 This post relates to the __Domain Driven Design (DDD)__ concept of __Domain Events__.  These events originate in the Domain Model and are broadcast within a Bounded Context.  These are not events used directly for integration.  For the purpose of this implementation I want to frame things as EFCore entities publishing events that can be handled locally by one or more subscribers within a Unit Of Work.  For more information about what Domain Events are/aren't and what they can be used for, check out [Domain Driven Design](https://www.amazon.com/exec/obidos/ASIN/0321125215/domainlanguag-20) by Eric Evans and [Implementing Domain Driven Design](https://www.oreilly.com/library/view/implementing-domain-driven-design/9780133039900/) by Vaughn Vernon.
