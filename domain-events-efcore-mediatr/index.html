@@ -4,24 +4,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Publishing .NET Core NuGet Packages with Nuke and AppVeyor | cfrenzel</title>
+    <title>Simple Domain Events with EFCore and MediatR | cfrenzel</title>
 
     <!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Publishing .NET Core NuGet Packages with Nuke and AppVeyor | cfrenzel</title>
+<title>Simple Domain Events with EFCore and MediatR | cfrenzel</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="Publishing .NET Core NuGet Packages with Nuke and AppVeyor" />
+<meta property="og:title" content="Simple Domain Events with EFCore and MediatR" />
 <meta name="author" content="camron" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="This article builds on concepts discussed by Andrew Lock, Jimmy Bogard and Georg Dangl. Here we’re going use Nuke to make build, packaging and publishing even nicer!!!" />
-<meta property="og:description" content="This article builds on concepts discussed by Andrew Lock, Jimmy Bogard and Georg Dangl. Here we’re going use Nuke to make build, packaging and publishing even nicer!!!" />
-<link rel="canonical" href="https://cfrenzel.com/publishing-nuget-nuke-appveyor/" />
-<meta property="og:url" content="https://cfrenzel.com/publishing-nuget-nuke-appveyor/" />
+<meta name="description" content="This post relates to the Domain Driven Design (DDD) concept of Domain Events. These events originate in the Domain Model and are broadcast within a Bounded Context. These are not events used directly for integration. For the purpose of this implementation I want to frame things as EFCore entities publishing events that can be handled locally by one or more subscribers within a Unit Of Work. For more information about what Domain Events are/aren’t and what they can be used for, check out Domain Driven Design by Eric Evans and Implementing Domain Driven Design by Vaughn Vernon." />
+<meta property="og:description" content="This post relates to the Domain Driven Design (DDD) concept of Domain Events. These events originate in the Domain Model and are broadcast within a Bounded Context. These are not events used directly for integration. For the purpose of this implementation I want to frame things as EFCore entities publishing events that can be handled locally by one or more subscribers within a Unit Of Work. For more information about what Domain Events are/aren’t and what they can be used for, check out Domain Driven Design by Eric Evans and Implementing Domain Driven Design by Vaughn Vernon." />
+<link rel="canonical" href="https://cfrenzel.com/domain-events-efcore-mediatr/" />
+<meta property="og:url" content="https://cfrenzel.com/domain-events-efcore-mediatr/" />
 <meta property="og:site_name" content="cfrenzel" />
-<meta property="og:image" content="https://cfrenzel.com/assets/images/nuke-appveyor-build-image.png" />
+<meta property="og:image" content="https://cfrenzel.com/assets/images/book-Evans_2004_ddd.jpg" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2019-12-17T00:00:00-05:00" />
+<meta property="article:published_time" content="2020-01-03T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"This article builds on concepts discussed by Andrew Lock, Jimmy Bogard and Georg Dangl. Here we’re going use Nuke to make build, packaging and publishing even nicer!!!","@type":"BlogPosting","url":"https://cfrenzel.com/publishing-nuget-nuke-appveyor/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://cfrenzel.com/assets/images/logo.png"},"name":"camron"},"headline":"Publishing .NET Core NuGet Packages with Nuke and AppVeyor","dateModified":"2019-12-17T00:00:00-05:00","datePublished":"2019-12-17T00:00:00-05:00","author":{"@type":"Person","name":"camron"},"image":"https://cfrenzel.com/assets/images/nuke-appveyor-build-image.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://cfrenzel.com/publishing-nuget-nuke-appveyor/"},"@context":"http://schema.org"}</script>
+{"description":"This post relates to the Domain Driven Design (DDD) concept of Domain Events. These events originate in the Domain Model and are broadcast within a Bounded Context. These are not events used directly for integration. For the purpose of this implementation I want to frame things as EFCore entities publishing events that can be handled locally by one or more subscribers within a Unit Of Work. For more information about what Domain Events are/aren’t and what they can be used for, check out Domain Driven Design by Eric Evans and Implementing Domain Driven Design by Vaughn Vernon.","@type":"BlogPosting","url":"https://cfrenzel.com/domain-events-efcore-mediatr/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://cfrenzel.com/assets/images/logo.png"},"name":"camron"},"headline":"Simple Domain Events with EFCore and MediatR","dateModified":"2020-01-03T00:00:00-05:00","datePublished":"2020-01-03T00:00:00-05:00","author":{"@type":"Person","name":"camron"},"image":"https://cfrenzel.com/assets/images/book-Evans_2004_ddd.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://cfrenzel.com/domain-events-efcore-mediatr/"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -293,30 +293,26 @@ function lunr_search(term) {
 						  
 						
 						  
-                          <a class="sscroll tag-text" href="/tags/appveyor">appveyor</a><span class="sep"> / </span>
+                          <a class="sscroll tag-text" href="/tags/efcore">efcore</a><span class="sep"> / </span>
 						  
 						
 						  
-                          <a class="sscroll tag-text" href="/tags/nuke">nuke</a><span class="sep"> / </span>
+                          <a class="sscroll tag-text" href="/tags/ddd">ddd</a><span class="sep"> / </span>
 						  
 						
 						  
-                          <a class="sscroll tag-text" href="/tags/dotnet">dotnet</a><span class="sep"> / </span>
-						  
-						
-						  
-                          <a class="sscroll tag-text" href="/tags/nuget">nuget</a><span class="sep"> / </span>
+                          <a class="sscroll tag-text" href="/tags/mediatr">mediatR</a><span class="sep"> / </span>
 						  
 						
                         </span>
 					</p>
-					<h1 class="article-headline">Publishing .NET Core NuGet Packages with Nuke and AppVeyor
+					<h1 class="article-headline">Simple Domain Events with EFCore and MediatR
 					</h1>
 					<small class="ml-3 text-muted">
 							<i class="far fa-clock"></i><span class="reading-time">
   
   
-    9 mins read
+    11 mins read
   
 </span>
      
@@ -327,10 +323,10 @@ function lunr_search(term) {
                         <img class="rounded-circle" src="/assets/images/avatar-cam.jpg" alt="Camron Frenzel" width="40"/>
                         
 						<small class="ml-3"> Camron Frenzel 
-                            <span class="text-muted d-block mt-1">Dec 17, 2019 · <span class="reading-time">
+                            <span class="text-muted d-block mt-1">Jan 03, 2020 · <span class="reading-time">
   
   
-    9 mins read
+    11 mins read
   
 </span>
     </span>
@@ -339,7 +335,7 @@ function lunr_search(term) {
 				</div>
                 <!-- 
 				<div class="col-md-2 pr-0 align-self-center">
-					<img class="rounded" src="/assets/images/nuke-appveyor-build-image.png" alt="Publishing .NET Core NuGet Packages with Nuke and AppVeyor">
+					<img class="rounded" src="/assets/images/book-Evans_2004_ddd.jpg" alt="Simple Domain Events with EFCore and MediatR">
 				</div>
                  -->
 			</div>
@@ -352,322 +348,320 @@ function lunr_search(term) {
 	 	<div class="col-md-10">
             <!-- Article -->
 			<article class="article-post">                
-			<p>This article builds on concepts discussed by <a href="https://andrewlock.net/publishing-your-first-nuget-package-with-appveyor-and-myget/">Andrew Lock</a>, <a href="https://lostechies.com/jimmybogard/2016/05/24/my-oss-cicd-pipeline/">Jimmy Bogard</a> and <a href="https://blog.dangl.me/archive/escalating-automation-the-nuclear-option/">Georg Dangl</a>. Here we’re going use <a href="https://nuke.build/">Nuke</a> to make build, packaging and publishing even nicer!!!</p>
+			<p>This post relates to the <strong>Domain Driven Design (DDD)</strong> concept of <strong>Domain Events</strong>.  These events originate in the Domain Model and are broadcast within a Bounded Context.  These are not events used directly for integration.  For the purpose of this implementation I want to frame things as EFCore entities publishing events that can be handled locally by one or more subscribers within a Unit Of Work.  For more information about what Domain Events are/aren’t and what they can be used for, check out <a href="https://www.amazon.com/exec/obidos/ASIN/0321125215/domainlanguag-20">Domain Driven Design</a> by Eric Evans and <a href="https://www.oreilly.com/library/view/implementing-domain-driven-design/9780133039900/">Implementing Domain Driven Design</a> by Vaughn Vernon.</p>
 
-<p>I’ve been eking out build solutions using various Powershell based tools for years.  They serve their purpose, but I always dread getting familiar with the scripts again when I need to make a change.  I recently used <a href="https://nuke.build/">Nuke</a> on a project and for the first time I feel like I didn’t waste any time fighting with it.</p>
+<p>Beyond the initial difficulty of understanding what Domain Events are, lies figuring out a way to implement the things.  How the heck can you cleanly publish an event from an Entity?  How would you wire up listeners, and where in the architecture would the listeners live?  Our entities are often in a core assembly that doesn’t have any dependencies. There is no concept of a UnitOfWork/Transaction at this level, and they sure as heck don’t have access to anything interesting like databases or an Application Layer where you might normally think about hydrating other entities and handling events.</p>
 
-<p>Nuke creates a CSharp Console App within your solution containing a simple <code>Build.cs</code> file that can handle a variety of common build/deployment tasks out of the box.  The real joy is that you can now author and debug platform independent build scripts in C# within your favorite IDE!</p>
+<p>This post describes a method to allow EFCore entities to publish Domain Events.  I’ve seen this technique used a handful of times, but to make this implementation a little more interesting Domain Events will be published as <a href="https://github.com/jbogard/MediatR">MediatR</a> notifications that can be handled in the Application Layer.  In addition, this must be done without the entities taking on any external dependencies.  Specifically the entities won’t have a dependency on MediatR.</p>
 
-<p>Let’s jump in.</p>
+<p>Sound good? Let’s get started!</p>
 
-<h4>Using Nuke to Build</h4>
+<h4>The Entity side</h4>
 
-<ul>
-  <li>Install Nuke</li>
-</ul>
-<pre>
-&gt; dotnet tool install Nuke.GlobalTool --global
-</pre>
+<p>The entity needs to call publish on something.  One of the simplest implementations from the entity’s perspective is just to have the entity inherit from a base class that contains the publish logic.  In this implementation the entity won’t actually be doing the event dispatching, it will just hold a collection of events that a dispatcher will later examine.</p>
 
 <ul>
-  <li>Add Nuke to your solution - let the wizard get you started</li>
+  <li>First let’s define an interface for the Entity</li>
 </ul>
-<pre>
-&gt; nuke :setup
-</pre>
-<p><img src="/assets/images/nuke-setup-screen.png" alt="nuke setup" title="nuke setup" height="400" /></p>
-<div class="alert alert-warning" role="alert">
-  <strong>Warning:</strong> For me the Nuke build project defaulted to .NET Core 3.0.  This isn't necessarily a problem, but it's worth noting.  This was true when buidling an app on .NET Core 2.2; so it's a bit odd for my build environment to require .Net Core 3.0<br />  
-  TODO:/// Figure out Nuke's logic for framework selection and see if it's configurable     
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Concurrent</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">DomainEventsMediatR.Domain</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">interface</span> <span class="nc">IEntity</span>
+    <span class="p">{</span>
+        <span class="n">IProducerConsumerCollection</span><span class="p">&lt;</span><span class="n">IDomainEvent</span><span class="p">&gt;</span> <span class="n">DomainEvents</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+ <span class="k">public</span> <span class="k">interface</span> <span class="nc">IDomainEvent</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Now a base class implementation for our EFCore entities marking the DomainEvents as <code>[NotMapped]</code> to let EFCore know that they are not to be persisted to the db.</li>
+</ul>
+
+<div class="alert alert-primary">
+ We also add a helper for entities to initialize there own Id's.  It can be very useful and efficient for entities to have their Id's generated locally "on or before instantiation" rather than "on save" or in the database.  This allows transient entities to reference eachother by Id, to store Id's in Domain Events, and generally to use Id's in all kinds of eventual consistency scenarios.  If you can't meet this requirement then you can pass the entity itself in the domain event, but remember that it hasn't been persisted yet; so you can't trust the transient Id assigned by EFcore (a new Id will be assigned by the database when persisted).
 </div>
 
-<p>You’ll notice a new project in your solution named <code>_build</code>.  Take note of a few files</p>
-<ol>
-  <li><code>Build.cs</code> - a fluent “make style” build Class in C#
-    <ul>
-      <li>Defines targets and their dependencies</li>
-    </ul>
-  </li>
-  <li>Two scripts used to run builds.  These scripts will install dotnet if it doesn’t exist and then call your build application.  Choose one based on your build environment.
-    <ul>
-      <li><code>build.ps1</code> - a powershell script used to execute builds (platform independent - must have powershell installed)</li>
-      <li><code>build.sh</code> - a shell script version (linux/osx/etc..)</li>
-    </ul>
-  </li>
-</ol>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections.Concurrent</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel.DataAnnotations.Schema</span><span class="p">;</span>
 
-<ul>
-  <li>Now compile your code</li>
-</ul>
-<pre>
-&gt;  .\build.ps1 Compile
-</pre>
-<p><img src="/assets/images/nuke-compile-screen.png" alt="nuke compile" title="nuke compile" height="600" /></p>
+<span class="k">namespace</span> <span class="nn">DomainEventsMediatR.Domain</span>
+<span class="p">{</span> 
+    <span class="k">public</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">Entity</span> <span class="p">:</span> <span class="n">IEntity</span>
+    <span class="p">{</span>     
+        <span class="p">[</span><span class="n">NotMapped</span><span class="p">]</span>
+        <span class="k">private</span> <span class="k">readonly</span> <span class="n">ConcurrentQueue</span><span class="p">&lt;</span><span class="n">IDomainEvent</span><span class="p">&gt;</span> <span class="n">_domainEvents</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ConcurrentQueue</span><span class="p">&lt;</span><span class="n">IDomainEvent</span><span class="p">&gt;();</span>
 
-<p><strong>Success!</strong> I’ll admit that compiling a project isn’t that impressive, but we’re now scripting in C#.  Let’s take it a step further and make a NuGet package.</p>
+        <span class="p">[</span><span class="n">NotMapped</span><span class="p">]</span>
+        <span class="k">public</span> <span class="n">IProducerConsumerCollection</span><span class="p">&lt;</span><span class="n">IDomainEvent</span><span class="p">&gt;</span> <span class="n">DomainEvents</span> <span class="p">=&gt;</span> <span class="n">_domainEvents</span><span class="p">;</span>
 
-<ul>
-  <li>Add a <strong>Pack</strong> step to our build script</li>
-</ul>
+        <span class="k">protected</span> <span class="k">void</span> <span class="nf">PublishEvent</span><span class="p">(</span><span class="n">IDomainEvent</span> <span class="n">@event</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_domainEvents</span><span class="p">.</span><span class="nf">Enqueue</span><span class="p">(</span><span class="n">@event</span><span class="p">);</span>
+        <span class="p">}</span>
 
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Target</span> <span class="n">Pack</span> <span class="p">=&gt;</span> <span class="n">_</span> <span class="p">=&gt;</span> <span class="n">_</span>
-      <span class="p">.</span><span class="nf">DependsOn</span><span class="p">(</span><span class="n">Compile</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">Executes</span><span class="p">(()</span> <span class="p">=&gt;</span>
-      <span class="p">{</span>
-          <span class="nf">DotNetPack</span><span class="p">(</span><span class="n">s</span> <span class="p">=&gt;</span> <span class="n">s</span>
-              <span class="p">.</span><span class="nf">SetProject</span><span class="p">(</span><span class="n">Solution</span><span class="p">.</span><span class="nf">GetProject</span><span class="p">(</span><span class="s">"Nuke.Sample"</span><span class="p">))</span>
-              <span class="p">.</span><span class="nf">SetConfiguration</span><span class="p">(</span><span class="n">Configuration</span><span class="p">)</span>
-              <span class="p">.</span><span class="nf">EnableNoBuild</span><span class="p">()</span>
-              <span class="p">.</span><span class="nf">EnableNoRestore</span><span class="p">()</span>
-              <span class="p">.</span><span class="nf">SetDescription</span><span class="p">(</span><span class="s">"Sample package produced by NUKE"</span><span class="p">)</span>
-              <span class="p">.</span><span class="nf">SetPackageTags</span><span class="p">(</span><span class="s">"nuke demonstration c# library"</span><span class="p">)</span>
-              <span class="p">.</span><span class="nf">SetNoDependencies</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
-              <span class="p">.</span><span class="nf">SetOutputDirectory</span><span class="p">(</span><span class="n">ArtifactsDirectory</span> <span class="p">/</span> <span class="s">"nuget"</span><span class="p">));</span>
-
-      <span class="p">});</span>
+        <span class="k">protected</span> <span class="n">Guid</span> <span class="nf">NewIdGuid</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">MassTransit</span><span class="p">.</span><span class="n">NewId</span><span class="p">.</span><span class="nf">NextGuid</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div></div>
-
-<p>We want our NuGet package to specify an author, repository, homepage, etc…  We could do this programatically from Nuke</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">Target</span> <span class="n">Pack</span> <span class="p">=&gt;</span> <span class="n">_</span> <span class="p">=&gt;</span> <span class="n">_</span>
-      <span class="p">.</span><span class="nf">DependsOn</span><span class="p">(</span><span class="n">Compile</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">Executes</span><span class="p">(()</span> <span class="p">=&gt;</span>
-      <span class="p">{</span>
-          <span class="nf">DotNetPack</span><span class="p">(</span><span class="n">s</span> <span class="p">=&gt;</span> <span class="n">s</span>
-               <span class="p">***</span>
-              <span class="p">.</span><span class="nf">SetAuthors</span><span class="p">(</span><span class="s">"Your Name"</span><span class="p">)</span>
-              <span class="p">.</span><span class="nf">SetPackageProjectUrl</span><span class="p">(</span><span class="s">"https://github.com/yourrepo/NukeSample"</span><span class="p">)</span>
-               <span class="p">***</span>
-      <span class="p">});</span>
-</code></pre></div></div>
-
 <ul>
-  <li>But it’s simpler to add a <code>Directory.Build.props</code> to your solution folder</li>
+  <li>Now a Domain Event: <code>BacklogItemCommitted</code> and an entity: <code>BacklogItem</code> that publishes the event when it is commited to a <code>Sprint</code></li>
 </ul>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;Project&gt;</span>
-  <span class="nt">&lt;PropertyGroup&gt;</span>
-    <span class="nt">&lt;Authors&gt;</span>Your Name<span class="nt">&lt;/Authors&gt;</span>
-    <span class="nt">&lt;RepositoryUrl&gt;</span>https://github.com/yourrepo/NukeSample<span class="nt">&lt;/RepositoryUrl&gt;</span>
-    <span class="nt">&lt;PackageProjectUrl&gt;</span>https://github.com/yourrepo/NukeSample<span class="nt">&lt;/PackageProjectUrl&gt;</span>
-    <span class="nt">&lt;PackageLicense&gt;</span>https://github.com/yourrepo/NukeSample/blob/master/LICENSE<span class="nt">&lt;/PackageLicense&gt;</span>
-  <span class="nt">&lt;/PropertyGroup&gt;</span>
-<span class="nt">&lt;/Project&gt;</span>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">namespace</span> <span class="nn">DomainEventsMediatR.Domain</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">BacklogItemCommitted</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="n">Guid</span> <span class="n">BacklogItemId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="n">Guid</span> <span class="n">SprintId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="n">DateTime</span> <span class="n">CreatedAtUtc</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="k">private</span> <span class="nf">BacklogItemCommitted</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+
+        <span class="k">public</span> <span class="nf">BacklogItemCommitted</span><span class="p">(</span><span class="n">BacklogItem</span> <span class="n">b</span><span class="p">,</span> <span class="n">Sprint</span> <span class="n">s</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="n">BacklogItemId</span> <span class="p">=</span> <span class="n">b</span><span class="p">.</span><span class="n">Id</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="n">CreatedAtUtc</span> <span class="p">=</span> <span class="n">b</span><span class="p">.</span><span class="n">CreatedAtUtc</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="n">SprintId</span> <span class="p">=</span> <span class="n">s</span><span class="p">.</span><span class="n">Id</span><span class="p">;</span>
+        <span class="p">}</span>    
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.ComponentModel.DataAnnotations</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">DomainEventsMediatR.Domain</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">BacklogItem</span> <span class="p">:</span> <span class="n">Entity</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="n">Guid</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="p">[</span><span class="nf">MaxLength</span><span class="p">(</span><span class="m">255</span><span class="p">)]</span>
+        <span class="k">public</span> <span class="kt">string</span> <span class="n">Description</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="k">virtual</span> <span class="n">Sprint</span> <span class="n">Sprint</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="n">DateTime</span> <span class="n">CreatedAtUtc</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">UtcNow</span><span class="p">;</span>
+
+        <span class="k">private</span> <span class="nf">BacklogItem</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+
+        <span class="k">public</span> <span class="nf">BacklogItem</span><span class="p">(</span><span class="kt">string</span> <span class="n">desc</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="n">Id</span> <span class="p">=</span> <span class="nf">NewIdGuid</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="n">Description</span> <span class="p">=</span> <span class="n">desc</span><span class="p">;</span>
+        <span class="p">}</span>
+    
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">CommitTo</span><span class="p">(</span><span class="n">Sprint</span> <span class="n">s</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="n">Sprint</span> <span class="p">=</span> <span class="n">s</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nf">PublishEvent</span><span class="p">(</span><span class="k">new</span> <span class="nf">BacklogItemCommitted</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">s</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div></div>
-
 <ul>
-  <li>Now call our new <strong>Pack</strong> target</li>
-</ul>
-<pre>
-&gt;  .\build.ps1 Pack
-</pre>
-
-<p>Now we’ve got our nuget package: <code>artifacts\nuget\Nuke.Sample.1.0.0.nupkg</code>.  If we unzip the .nupkg file we can take a look inside at our <code>Nuke.Sample.nuspec</code> file.</p>
-
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
-<span class="nt">&lt;package</span> <span class="na">xmlns=</span><span class="s">"http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;metadata&gt;</span>
-    <span class="nt">&lt;id&gt;</span>Nuke.Sample<span class="nt">&lt;/id&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.0.0<span class="nt">&lt;/version&gt;</span>
-    <span class="nt">&lt;authors&gt;</span>Your Name<span class="nt">&lt;/authors&gt;</span>
-    <span class="nt">&lt;owners&gt;</span>Your Name<span class="nt">&lt;/owners&gt;</span>
-    <span class="nt">&lt;requireLicenseAcceptance&gt;</span>false<span class="nt">&lt;/requireLicenseAcceptance&gt;</span>
-    <span class="nt">&lt;projectUrl&gt;</span>https://github.com/yourrepo/NukeSample<span class="nt">&lt;/projectUrl&gt;</span>
-    <span class="nt">&lt;description&gt;</span>Sample package produced by NUKE<span class="nt">&lt;/description&gt;</span>
-    <span class="nt">&lt;tags&gt;</span>nuke demonstration c# library<span class="nt">&lt;/tags&gt;</span>
-    <span class="nt">&lt;repository</span> <span class="na">url=</span><span class="s">"https://github.com/yourrepo/NukeSample"</span> <span class="nt">/&gt;</span>
-    <span class="nt">&lt;dependencies&gt;</span>
-      <span class="nt">&lt;group</span> <span class="na">targetFramework=</span><span class="s">".NETStandard2.0"</span> <span class="nt">/&gt;</span>
-    <span class="nt">&lt;/dependencies&gt;</span>
-  <span class="nt">&lt;/metadata&gt;</span>
-<span class="nt">&lt;/package&gt;</span>
-</code></pre></div></div>
-
-<p><strong>Success!</strong>  Not bad for a few minutes of our time.  Before we move on let’s touch on versioning.  If you have an approach that you love, it shouldn’t be hard to work it into our current workflow with Nuke.  Here we’ll consider a manual option and using the popular <a href="https://gitversion.readthedocs.io/en/latest/">GitVersion</a> tool.</p>
-
-<h6>Manual Versioning</h6>
-<ul>
-  <li>Let’s add add a couple of lines to our <code>Directory.Build.props</code>.</li>
+  <li>The real magic with this technique is how the Domain Events are dispatched.  Currently they’re just sitting in the Entity.  We’ll use some hooks in our DbContext to dispatch them, but first let’s define an interface for the dispatcher</li>
 </ul>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;Project&gt;</span>
-  <span class="nt">&lt;PropertyGroup&gt;</span>
-    ---
-    <span class="nt">&lt;VersionPrefix&gt;</span>0.1.1<span class="nt">&lt;/VersionPrefix&gt;</span>
-    <span class="nt">&lt;VersionSuffix&gt;</span>alpha<span class="nt">&lt;/VersionSuffix&gt;</span>
-  <span class="nt">&lt;/PropertyGroup&gt;</span>
-<span class="nt">&lt;/Project&gt;</span>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.Threading.Tasks</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">DomainEventsMediatR.Domain</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">interface</span> <span class="nc">IDomainEventDispatcher</span>
+    <span class="p">{</span>
+        <span class="n">Task</span> <span class="nf">Dispatch</span><span class="p">(</span><span class="n">IDomainEvent</span> <span class="n">devent</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 <ul>
-  <li>Now let’s call our <strong>Pack</strong> target again</li>
-</ul>
-<pre>
-&gt;  .\build.ps1 Pack
-</pre>
-
-<p>Our package name reflects the new version: <code>artifacts\nuget\Nuke.Sample.0.1.1-alpha.nupkg</code>.  If we unzip and look inside <code>Nuke.Sample.nuspec</code> we can see the updated version.</p>
-
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
-<span class="nt">&lt;package</span> <span class="na">xmlns=</span><span class="s">"http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;metadata&gt;</span>
-    <span class="nt">&lt;id&gt;</span>Nuke.Sample<span class="nt">&lt;/id&gt;</span>
-    <span class="nt">&lt;version&gt;</span>0.1.1-alpha<span class="nt">&lt;/version&gt;</span>
-</code></pre></div></div>
-<h6>Versioning with GitVersion tool</h6>
-<p>Nuke has great integration with the <a href="https://gitversion.readthedocs.io/en/latest/">GitVersion</a> tool. You’ll need to read the <a href="https://gitversion.readthedocs.io/en/latest/">docs</a> to fully understand how GitVersion determines the current version name for a branch, but to use - simply:</p>
-
-<ul>
-  <li>Add these 2 properties to your <code>Build.cs</code> class
-    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="p">[</span><span class="n">GitRepository</span><span class="p">]</span> <span class="k">readonly</span> <span class="n">GitRepository</span> <span class="n">GitRepository</span><span class="p">;</span>
-  <span class="p">[</span><span class="n">GitVersion</span><span class="p">]</span> <span class="k">readonly</span> <span class="n">GitVersion</span> <span class="n">GitVersion</span><span class="p">;</span>
-</code></pre></div>    </div>
-  </li>
-  <li>Add the <code>.SetVersion(GitVersion.NuGetVersionV2)</code> to your <strong>Pack</strong> Target
-    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nf">DotNetPack</span><span class="p">(</span><span class="n">s</span> <span class="p">=&gt;</span> <span class="n">s</span>
-           <span class="p">---</span>
-          <span class="p">.</span><span class="nf">SetVersion</span><span class="p">(</span><span class="n">GitVersion</span><span class="p">.</span><span class="n">NuGetVersionV2</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">SetNoDependencies</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
-          <span class="p">.</span><span class="nf">SetOutputDirectory</span><span class="p">(</span><span class="n">ArtifactsDirectory</span> <span class="p">/</span> <span class="s">"nuget"</span><span class="p">));</span>
-</code></pre></div>    </div>
-    <p>Now GitVersion will work it’s magic to determine the current version name!</p>
-  </li>
+  <li>Now we can configure the dispatcher to be injected into our DbContext constructor</li>
 </ul>
 
-<h5>Publishing to a NuGet Repository with Nuke</h5>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">public</span> <span class="k">class</span> <span class="nc">ApplicationDbContext</span> <span class="p">:</span> <span class="n">DbContext</span>
+ <span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IDomainEventDispatcher</span> <span class="n">_dispatcher</span><span class="p">;</span>
 
-<p>Now that we have our source compiling and our package versioned and waiting in our artifacts folder, lets use Nuke to push it to a repository where it can be used by others.</p>
-
-<p>In order to make this as flexible as possible, we’ll pass the nuget repository’s url and auth_key as parameters to the Nuke build script.  Inside the script Nuke makes it easy for us to</p>
-<ul>
-  <li>Require that it’s a Release build</li>
-  <li>Require that the url and auth_key have been set</li>
-  <li>
-    <p>Get values from commandline / environment using c# fields</p>
-  </li>
-  <li>Add 2 Fields to to your Build file with the [Parameter] attribute</li>
-</ul>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">[</span><span class="n">Parameter</span><span class="p">]</span> <span class="kt">string</span> <span class="n">NugetApiUrl</span> <span class="p">=</span> <span class="s">"https://api.nuget.org/v3/index.json"</span><span class="p">;</span> <span class="c1">//default</span>
-    <span class="p">[</span><span class="n">Parameter</span><span class="p">]</span> <span class="kt">string</span> <span class="n">NugetApiKey</span><span class="p">;</span>
-</code></pre></div></div>
-<ul>
-  <li>Add a <strong>Push</strong> Target to your Build file</li>
-</ul>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">Target</span> <span class="n">Push</span> <span class="p">=&gt;</span> <span class="n">_</span> <span class="p">=&gt;</span> <span class="n">_</span>
-       <span class="p">.</span><span class="nf">DependsOn</span><span class="p">(</span><span class="n">Pack</span><span class="p">)</span>
-       <span class="p">.</span><span class="nf">Requires</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">NugetApiUrl</span><span class="p">)</span>
-       <span class="p">.</span><span class="nf">Requires</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">NugetApiKey</span><span class="p">)</span>
-       <span class="p">.</span><span class="nf">Requires</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">Configuration</span><span class="p">.</span><span class="nf">Equals</span><span class="p">(</span><span class="n">Configuration</span><span class="p">.</span><span class="n">Release</span><span class="p">))</span>
-       <span class="p">.</span><span class="nf">Executes</span><span class="p">(()</span> <span class="p">=&gt;</span>
-       <span class="p">{</span>
-           <span class="nf">GlobFiles</span><span class="p">(</span><span class="n">NugetDirectory</span><span class="p">,</span> <span class="s">"*.nupkg"</span><span class="p">)</span>
-               <span class="p">.</span><span class="nf">NotEmpty</span><span class="p">()</span>
-               <span class="p">.</span><span class="nf">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="p">!</span><span class="n">x</span><span class="p">.</span><span class="nf">EndsWith</span><span class="p">(</span><span class="s">"symbols.nupkg"</span><span class="p">))</span>
-               <span class="p">.</span><span class="nf">ForEach</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span>
-               <span class="p">{</span>
-                   <span class="nf">DotNetNuGetPush</span><span class="p">(</span><span class="n">s</span> <span class="p">=&gt;</span> <span class="n">s</span>
-                       <span class="p">.</span><span class="nf">SetTargetPath</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-                       <span class="p">.</span><span class="nf">SetSource</span><span class="p">(</span><span class="n">NugetApiUrl</span><span class="p">)</span>
-                       <span class="p">.</span><span class="nf">SetApiKey</span><span class="p">(</span><span class="n">NugetApiKey</span><span class="p">)</span>
-                   <span class="p">);</span>
-               <span class="p">});</span>
-       <span class="p">});</span>
-</code></pre></div></div>
-<ul>
-  <li><strong>Push</strong> to a NuGet repository</li>
-</ul>
-<pre>
-&gt; ./build.ps1 Push --NugetApiUrl "https://api.nuget.org/v3/index.json" --NugetApiKey "yoursecretkey"   
-</pre>
-
-<h4>Using AppVeyor for Continuous Integration and Deployment</h4>
-
-<p><a href="https://www.appveyor.com/">AppVeyor</a> is a CI/CD tool with good support for windows/dotnet (and linux).  For open source projects you can setup a free account to build and deploy every time you publish changes to source control.  Here we’re going to use <a href="https://www.github.com">GitHub</a>, but you could configure something similar with <a href="https://azure.microsoft.com/en-us/services/devops/">Azure DevOps</a></p>
-
-<p>We’re going to build a popular workflow as described by <a href="https://andrewlock.net/publishing-your-first-nuget-package-with-appveyor-and-myget/">Andrew Lock</a> and <a href="https://lostechies.com/jimmybogard/2016/05/24/my-oss-cicd-pipeline/">Jimmy Bogard</a>.  It uses two seperate nuget repositories to publish under different conditions:</p>
-
-<ul>
-  <li>Build all commits on <code>master</code> branch and publish to <a href="https://www.myget.org/">MyGet.org</a>
-    <ul>
-      <li>Useful for reviewing and testing packages before releasing to the world</li>
-      <li>Nightly/experimental builds</li>
-    </ul>
-  </li>
-  <li>If a commit is tagged we want to build and publish to <a href="https://www.nuget.org/">NuGet.org</a>
-    <ul>
-      <li>Allows us to use git tags to control versioning and our intent to publish to the world</li>
-    </ul>
-  </li>
-  <li>Build-only for pull request
-    <ul>
-      <li>We don’t want to publish a nuget package on pull requests, but we will confirm that the pull request builds</li>
-    </ul>
-  </li>
-</ul>
-
-<p>We can accomplish all of this with a simple appveyor.yml file.</p>
-
-<ul>
-  <li>Add <code>appveyor.yml</code> to our root folder</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>version: '{build}'
-image: Ubuntu
-environment:
-MyGetApiKey:
-    secure: 56nW3KcP4naYX9mlsVEIKLj5xPdfmpt6lMALR6wQmorRQOaoUOtlwMZ2V0BtGTAM
-NugetApiKey:
-    secure: /54XAunyBETRa1Fp/qSrwvebSnTAcHDO2OVZ+exMtQtOtrBzHKvp4RC1AB8RD2PQ
-pull_requests:
-do_not_increment_build_number: true
-branches:
-only:
-- master
-nuget:
-disable_publish_on_pr: true
-build_script:
-- ps: ./build.ps1
-test: off
-deploy_script:
-- ps: ./build.ps1 Pack
-- ps: ./build.ps1 Push --NugetApiUrl "https://www.myget.org/F/cfrenzel-ci/api/v2/package" --NugetApiKey $env:MyGetApiKey
-- ps: | 
-    if ($env:APPVEYOR_REPO_TAG  -eq "true"){
-        ./build.ps1 Push --NugetApiUrl "https://api.nuget.org/v3/index.json" --NugetApiKey $env:NugetApiKey
-    }
+    <span class="k">public</span> <span class="nf">ApplicationDbContext</span><span class="p">(</span><span class="n">DbContextOptions</span><span class="p">&lt;</span><span class="n">ApplicationDbContext</span><span class="p">&gt;</span> <span class="n">options</span><span class="p">,</span>
+        <span class="n">IDomainEventDispatcher</span> <span class="n">dispatcher</span><span class="p">)</span>
+        <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_dispatcher</span> <span class="p">=</span> <span class="n">dispatcher</span><span class="p">;</span>
+    <span class="p">}</span>
 </code></pre></div></div>
 
-<p>There are a couple of important bits here</p>
-<pre>
-build_script:
-    - ps: ./build.ps1
-</pre>
-<p>This tells appveyor to call our Nuke build script during the build phase</p>
-<pre>
- deploy_script:
-    - ps: ./build.ps1 Pack
-    - ps: ./build.ps1 Push --NugetApiUrl "https://www.myget.org/F/cfrenzel-ci/api/v2/package" --NugetApiKey $env:MyGetApiKey
-    - ps: | 
-        if ($env:APPVEYOR_REPO_TAG  -eq "true"){
-            ./build.ps1 Push --NugetApiUrl "https://api.nuget.org/v3/index.json" --NugetApiKey $env:NugetApiKey
-        }
-</pre>
-<p>This tells appveyor to run a series of powershell commands during the Deploy phase.</p>
 <ul>
-  <li>We call <strong>Pack</strong> to create the nuget package.</li>
-  <li>Then we <strong>Push</strong> it to MyGet.org using secure environment variables that we declared earlier</li>
-  <li>Then we check an appveyor environement variable <code>APPVEYOR_REPO_TAG</code> to see if the branch has a tag</li>
-  <li>If it does we <strong>Push</strong> to NuGet.Org</li>
+  <li>We can hook into EFCore and dispatch Domain Events before entities are persisted by overriding <code>SaveChanges</code></li>
 </ul>
 
-<p>For a full working example with multiple nuget packages in a single solution checkout out my repo:</p>
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">override</span> <span class="kt">int</span> <span class="nf">SaveChanges</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nf">_preSaveChanges</span><span class="p">().</span><span class="nf">GetAwaiter</span><span class="p">().</span><span class="nf">GetResult</span><span class="p">();</span>
+    <span class="kt">var</span> <span class="n">res</span> <span class="p">=</span> <span class="k">base</span><span class="p">.</span><span class="nf">SaveChanges</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
 
-<p><a href="https://github.com/cfrenzel/Eventfully/blob/master/build/Build.cs">https://github.com/cfrenzel/Eventfully/blob/master/build/Build.cs</a>
-<a href="https://github.com/cfrenzel/Eventfully/blob/master/appveyor.yml">https://github.com/cfrenzel/Eventfully/blob/master/appveyor.yml</a>
-<a href="https://github.com/cfrenzel/Eventfully">https://github.com/cfrenzel/Eventfully</a></p>
+<span class="k">public</span> <span class="k">override</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="nf">SaveChangesAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">(</span><span class="n">CancellationToken</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="k">await</span> <span class="nf">_preSaveChanges</span><span class="p">();</span>
+    <span class="kt">var</span> <span class="n">res</span> <span class="p">=</span> <span class="k">await</span> <span class="k">base</span><span class="p">.</span><span class="nf">SaveChangesAsync</span><span class="p">(</span><span class="n">cancellationToken</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
 
+<span class="k">private</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">_preSaveChanges</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">await</span> <span class="nf">_dispatchDomainEvents</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">_dispatchDomainEvents</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">domainEventEntities</span> <span class="p">=</span> <span class="n">ChangeTracker</span><span class="p">.</span><span class="n">Entries</span><span class="p">&lt;</span><span class="n">IEntity</span><span class="p">&gt;()</span>
+        <span class="p">.</span><span class="nf">Select</span><span class="p">(</span><span class="n">po</span> <span class="p">=&gt;</span> <span class="n">po</span><span class="p">.</span><span class="n">Entity</span><span class="p">)</span>
+        <span class="p">.</span><span class="nf">Where</span><span class="p">(</span><span class="n">po</span> <span class="p">=&gt;</span> <span class="n">po</span><span class="p">.</span><span class="n">DomainEvents</span><span class="p">.</span><span class="nf">Any</span><span class="p">())</span>
+        <span class="p">.</span><span class="nf">ToArray</span><span class="p">();</span>
+
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">entity</span> <span class="k">in</span> <span class="n">domainEventEntities</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">IDomainEvent</span> <span class="n">dev</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">entity</span><span class="p">.</span><span class="n">DomainEvents</span><span class="p">.</span><span class="nf">TryTake</span><span class="p">(</span><span class="k">out</span> <span class="n">dev</span><span class="p">))</span>
+            <span class="k">await</span> <span class="n">_dispatcher</span><span class="p">.</span><span class="nf">Dispatch</span><span class="p">(</span><span class="n">dev</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4>The Dispatcher</h4>
+<p>We need an implementation of <code>IDomainEventDispatcher</code> that will publish the Domain Event as a MediatR notification.  We’ll implement this in our Application Layer.  We do have to deal with the small issue of our Domain Event not being a valid MediatR <code>INotification</code>.  We’ll overcome this by creating a generic <code>INotification</code> to wrap our Domain Event.</p>
+
+<ul>
+  <li>Create a custom generic <code>INotification</code>.</li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">MediatR</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">DomainEventsMediatR.Domain</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">DomainEventsMediatR.Application</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">DomainEventNotification</span><span class="p">&lt;</span><span class="n">TDomainEvent</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">INotification</span> <span class="k">where</span> <span class="n">TDomainEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="n">TDomainEvent</span> <span class="n">DomainEvent</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="k">public</span> <span class="nf">DomainEventNotification</span><span class="p">(</span><span class="n">TDomainEvent</span> <span class="n">domainEvent</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">DomainEvent</span> <span class="p">=</span> <span class="n">domainEvent</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Create a Dispatcher that wraps Domain Events in MediatR notificatoins and publishes them</li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Threading.Tasks</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.Extensions.Logging</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">MediatR</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">DomainEventsMediatR.Domain</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">DomainEventsMediatR.Application</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">MediatrDomainEventDispatcher</span> <span class="p">:</span> <span class="n">IDomainEventDispatcher</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">readonly</span> <span class="n">IMediator</span> <span class="n">_mediator</span><span class="p">;</span>
+        <span class="k">private</span> <span class="k">readonly</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">MediatrDomainEventDispatcher</span><span class="p">&gt;</span> <span class="n">_log</span><span class="p">;</span>
+        <span class="k">public</span> <span class="nf">MediatrDomainEventDispatcher</span><span class="p">(</span><span class="n">IMediator</span> <span class="n">mediator</span><span class="p">,</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">MediatrDomainEventDispatcher</span><span class="p">&gt;</span> <span class="n">log</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_mediator</span> <span class="p">=</span> <span class="n">mediator</span><span class="p">;</span>
+            <span class="n">_log</span> <span class="p">=</span> <span class="n">log</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">Dispatch</span><span class="p">(</span><span class="n">IDomainEvent</span> <span class="n">devent</span><span class="p">)</span>
+        <span class="p">{</span>
+
+            <span class="kt">var</span> <span class="n">domainEventNotification</span> <span class="p">=</span> <span class="nf">_createDomainEventNotification</span><span class="p">(</span><span class="n">devent</span><span class="p">);</span>
+            <span class="n">_log</span><span class="p">.</span><span class="nf">LogDebug</span><span class="p">(</span><span class="s">"Dispatching Domain Event as MediatR notification.  EventType: {eventType}"</span><span class="p">,</span> <span class="n">devent</span><span class="p">.</span><span class="nf">GetType</span><span class="p">());</span>
+            <span class="k">await</span> <span class="n">_mediator</span><span class="p">.</span><span class="nf">Publish</span><span class="p">(</span><span class="n">domainEventNotification</span><span class="p">);</span>
+        <span class="p">}</span>
+       
+        <span class="k">private</span> <span class="n">INotification</span> <span class="nf">_createDomainEventNotification</span><span class="p">(</span><span class="n">IDomainEvent</span> <span class="n">domainEvent</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">genericDispatcherType</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">DomainEventNotification</span><span class="p">&lt;&gt;).</span><span class="nf">MakeGenericType</span><span class="p">(</span><span class="n">domainEvent</span><span class="p">.</span><span class="nf">GetType</span><span class="p">());</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">INotification</span><span class="p">)</span><span class="n">Activator</span><span class="p">.</span><span class="nf">CreateInstance</span><span class="p">(</span><span class="n">genericDispatcherType</span><span class="p">,</span> <span class="n">domainEvent</span><span class="p">);</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Create a handler for the <code>BacklogItemCommitted</code> Domain Event</li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Threading</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Threading.Tasks</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.Extensions.Logging</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">MediatR</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">DomainEventsMediatR.Domain</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">DomainEventsMediatR.Persistence</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">DomainEventsMediatR.Application</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">OnBacklogItemCommitted</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">class</span> <span class="nc">Handler</span> <span class="p">:</span> <span class="n">INotificationHandler</span><span class="p">&lt;</span><span class="n">DomainEventNotification</span><span class="p">&lt;</span><span class="n">BacklogItemCommitted</span><span class="p">&gt;&gt;</span>
+        <span class="p">{</span>
+            <span class="k">private</span> <span class="k">readonly</span> <span class="n">ApplicationDbContext</span> <span class="n">_db</span><span class="p">;</span>
+            <span class="k">private</span> <span class="k">readonly</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">Handler</span><span class="p">&gt;</span> <span class="n">_log</span><span class="p">;</span>
+        
+            <span class="k">public</span> <span class="nf">Handler</span><span class="p">(</span><span class="n">ApplicationDbContext</span> <span class="n">db</span><span class="p">,</span>  <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">Handler</span><span class="p">&gt;</span> <span class="n">log</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">_db</span> <span class="p">=</span> <span class="n">db</span><span class="p">;</span>
+                <span class="n">_log</span> <span class="p">=</span> <span class="n">log</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="k">public</span> <span class="n">Task</span> <span class="nf">Handle</span><span class="p">(</span><span class="n">DomainEventNotification</span><span class="p">&lt;</span><span class="n">BacklogItemCommitted</span><span class="p">&gt;</span> <span class="n">notification</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="kt">var</span> <span class="n">domainEvent</span> <span class="p">=</span> <span class="n">notification</span><span class="p">.</span><span class="n">DomainEvent</span><span class="p">;</span>
+                <span class="k">try</span>
+                <span class="p">{</span>
+                    <span class="n">_log</span><span class="p">.</span><span class="nf">LogDebug</span><span class="p">(</span><span class="s">"Handling Domain Event. BacklogItemId: {itemId}  Type: {type}"</span><span class="p">,</span> <span class="n">domainEvent</span><span class="p">.</span><span class="n">BacklogItemId</span><span class="p">,</span> <span class="n">notification</span><span class="p">.</span><span class="nf">GetType</span><span class="p">());</span>
+                    <span class="c1">//from here you could </span>
+                    <span class="c1">// - create/modify entities within the same transaction as the backlogItem commit</span>
+                    <span class="c1">// - trigger the publishing of an integration event on a servicebus (don't write it directly though, you need an outbox scoped to this transaction)</span>
+                                      
+                    <span class="c1">//Remember NOT to call SaveChanges on dbcontext if making db changes when handling DomainEvents</span>
+                    <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">exc</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">_log</span><span class="p">.</span><span class="nf">LogError</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="s">"Error handling domain event {domainEvent}"</span><span class="p">,</span> <span class="n">domainEvent</span><span class="p">.</span><span class="nf">GetType</span><span class="p">());</span>
+                    <span class="k">throw</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Now we just need to configure dependency injection in our application and we’re done</li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     <span class="n">services</span><span class="p">.</span><span class="n">AddTransient</span><span class="p">&lt;</span><span class="n">IDomainEventDispatcher</span><span class="p">,</span> <span class="n">MediatrDomainEventDispatcher</span><span class="p">&gt;();</span>
+     <span class="n">services</span><span class="p">.</span><span class="nf">AddMediatR</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">MediatrDomainEventDispatcher</span><span class="p">).</span><span class="nf">GetTypeInfo</span><span class="p">().</span><span class="n">Assembly</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>You can find the full source code for this post at <a href="https://github.com/cfrenzel/DomainEventsWithMediatR">https://github.com/cfrenzel/DomainEventsWithMediatR</a></p>
                 
 			</article>
 			<!-- Tags
@@ -676,13 +670,11 @@ build_script:
 				
 				  <a class="sscroll btn btn-light btn-sm font-weight-bold" href="/tags.html#featured">featured</a>
 				
-				  <a class="sscroll btn btn-light btn-sm font-weight-bold" href="/tags.html#appveyor">appveyor</a>
+				  <a class="sscroll btn btn-light btn-sm font-weight-bold" href="/tags.html#efcore">efcore</a>
 				
-				  <a class="sscroll btn btn-light btn-sm font-weight-bold" href="/tags.html#nuke">nuke</a>
+				  <a class="sscroll btn btn-light btn-sm font-weight-bold" href="/tags.html#ddd">ddd</a>
 				
-				  <a class="sscroll btn btn-light btn-sm font-weight-bold" href="/tags.html#dotnet">dotnet</a>
-				
-				  <a class="sscroll btn btn-light btn-sm font-weight-bold" href="/tags.html#nuget">nuget</a>
+				  <a class="sscroll btn btn-light btn-sm font-weight-bold" href="/tags.html#mediatr">mediatr</a>
 				
 				</span>
 			</div> -->
@@ -692,10 +684,10 @@ build_script:
 		<div class="container">
 			<div class="row prevnextlinks small font-weight-bold">
 			  
-			  
-				<div class="col-md-6 text-right pr-0">
-					<a class="text-dark" href="/dotnet-new-templating-nuget/"> Quickly Create Your Own .NET Code Templates And Use Them From Anywhere  <img height="30px" class="ml-1" src="/assets/images/dotnet-new.png"> </a>
+				<div class="col-md-6 rightborder pl-0">
+					<a class="text-dark" href="/dotnet-new-templating-nuget/"> <img height="30px" class="mr-1" src="/assets/images/dotnet-new.png">  Quickly Create Your Own .NET Code Templates And Use Them From Anywhere</a>
 				</div>
+			  
 			  
 			</div>
 		</div>
@@ -711,7 +703,7 @@ build_script:
 					</div>
 					<div class="col-md-10">		
 						<h6 class="font-weight-bold">Written by Camron Frenzel </h6>
-						Dec 17, 2019
+						Jan 03, 2020
 						<br/>
 							<span>
 								<a target="_blank" href="https://github.com/cfrenzel" style="color:inherit">
