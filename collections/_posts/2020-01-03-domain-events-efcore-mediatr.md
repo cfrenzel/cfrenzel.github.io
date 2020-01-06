@@ -15,9 +15,9 @@ This post describes a method to allow EFCore entities to publish Domain Events. 
 
 Sound good? Let's get started!
 
-<h4>The Entity side</h4>
+<h4>The Entity Side</h4>
 
-The entity needs to call publish on something.  One of the simplest implementations from the entity's perspective is just to have the entity inherit from a base class that contains the publish logic.  In this implementation the entity won't actually be doing the event dispatching, it will just hold a collection of events that a dispatcher will later examine.
+The entity needs to call "Publish" on something.  One of the simplest implementations from the entity's perspective is just to have the entity inherit from a base class that contains the publish logic.  In this implementation the entity won't actually do the event dispatching, it will just hold a collection of events that a dispatcher will later examine.
 
 - First let's define an interface for the Entity
 
@@ -40,7 +40,7 @@ namespace DomainEventsMediatR.Domain
 - Now a base class implementation for our EFCore entities marking the DomainEvents as <code>[NotMapped]</code> to let EFCore know that they are not to be persisted to the db. 
 
 <div class="alert alert-primary">
- We also add a helper for entities to initialize there own Id's.  It can be very useful and efficient for entities to have their Id's generated locally "on or before instantiation" rather than "on save" or in the database.  This allows transient entities to reference eachother by Id, to store Id's in Domain Events, and generally to use Id's in all kinds of eventual consistency scenarios.  If you can't meet this requirement then you can pass the entity itself in the domain event, but remember that it hasn't been persisted yet; so you can't trust the transient Id assigned by EFcore (a new Id will be assigned by the database when persisted).
+ We also add a helper for entities to initialize there own Id's.  It can be very useful and efficient for entities to have their Id's generated locally "on or before instantiation" rather than "on save" or in the database.  This allows transient entities to reference eachother by Id, to store Id's in Domain Events, and generally to use Id's in all kinds of eventual consistency scenarios.  You can pass the entity itself in the domain event, but remember that it hasn't been persisted yet; so you can't trust the transient Id assigned by EFcore (a new Id will be assigned by the database when persisted).
 </div>
 
 ```csharp

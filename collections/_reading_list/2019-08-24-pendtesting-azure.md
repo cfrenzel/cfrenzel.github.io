@@ -1,6 +1,6 @@
 ---
 title:  "Pentesting Azure Applications"
-sub: "Teh Definitive Guide to Testing and Securing Deployments"
+sub: "The Definitive Guide to Testing and Securing Deployments"
 author: "Matt Burrough" 
 link: https://nostarch.com/azure
 image: assets/images/book_azure-pen-testing.png
