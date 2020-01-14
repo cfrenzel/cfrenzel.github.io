@@ -4,20 +4,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Contact | cfrenzel</title>
+    <title>Learning From Open Source Part1: MediatR | cfrenzel</title>
 
     <!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Contact | cfrenzel</title>
+<title>Learning From Open Source Part1: MediatR | cfrenzel</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="Contact" />
+<meta property="og:title" content="Learning From Open Source Part1: MediatR" />
+<meta name="author" content="camron" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Blog of Camron Frenzel" />
-<meta property="og:description" content="Blog of Camron Frenzel" />
-<link rel="canonical" href="http://localhost:4000/contact.html" />
-<meta property="og:url" content="http://localhost:4000/contact.html" />
+<meta name="description" content="It can be intimidating and time consuming to get familiar with a mature open source project. Often an attempt to find inspiration just results in a surface level understanding of a few components with no real insight into the magic. In this series I hope to find projects of just the right size and complexity to “get in there” and learn something. Let’s take a look a MediatR." />
+<meta property="og:description" content="It can be intimidating and time consuming to get familiar with a mature open source project. Often an attempt to find inspiration just results in a surface level understanding of a few components with no real insight into the magic. In this series I hope to find projects of just the right size and complexity to “get in there” and learn something. Let’s take a look a MediatR." />
+<link rel="canonical" href="http://localhost:4000/open-source-mediatr/" />
+<meta property="og:url" content="http://localhost:4000/open-source-mediatr/" />
 <meta property="og:site_name" content="cfrenzel" />
+<meta property="og:image" content="http://localhost:4000/assets/images/splash_benjamin-catapane.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-01-14T16:54:42-05:00" />
 <script type="application/ld+json">
-{"description":"Blog of Camron Frenzel","@type":"WebPage","url":"http://localhost:4000/contact.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"}},"headline":"Contact","@context":"http://schema.org"}</script>
+{"description":"It can be intimidating and time consuming to get familiar with a mature open source project. Often an attempt to find inspiration just results in a surface level understanding of a few components with no real insight into the magic. In this series I hope to find projects of just the right size and complexity to “get in there” and learn something. Let’s take a look a MediatR.","@type":"BlogPosting","url":"http://localhost:4000/open-source-mediatr/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"camron"},"headline":"Learning From Open Source Part1: MediatR","dateModified":"2020-01-14T16:54:42-05:00","datePublished":"2020-01-14T16:54:42-05:00","author":{"@type":"Person","name":"camron"},"image":"http://localhost:4000/assets/images/splash_benjamin-catapane.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/open-source-mediatr/"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -106,12 +110,12 @@ var documents = [{
     "id": 1,
     "url": "http://localhost:4000/categories.html",
     "title": "Categories",
-    "body": "          Categories               development:                                  		Learning From Open Source Part1: MediatR	: 		  It can be intimidating and time consuming to get familiar with a mature open source project.  Often an attempt to find inspiration just results in a surface level understanding of a f. . . 	 									development																	mediatR														tutorial									Jan 14, 2020						                                 		Simple Domain Events with EFCore and MediatR	: 		  This post relates to the Domain Driven Design (DDD) concept of Domain Events.  These events originate in the Domain Model and are broadcast within a Bounded Context.  These are not ev. . . 	 									development																						dotnet														efcore														ddd														mediatR									Jan 03, 2020						                                 		Quickly Create Your Own . NET Code Templates And Use Them From Anywhere	: 		  Whether you need to throw together a quick console app or scaffold an enterprise solution, it can be a real time suck just creating, naming and referencing projects.  Setting up boile. . . 	 									development																						dotnet														automation														nuget														appveyor									Dec 20, 2019						                                 		Publishing . NET Core NuGet Packages with Nuke and AppVeyor	: 		  This article builds on concepts discussed by Andrew Lock, Jimmy Bogard and Georg Dangl. Here we’re going use Nuke to make build, packaging and publishing even nicer!!!	 									development																						appveyor														nuke														dotnet														nuget									Dec 17, 2019						                                                           books                                                  reading list            categories                                                                development                                                        tags                                                             appveyor                               automation                               ddd                               dotnet                               efcore                               featured                               mediatR                               nuget                               nuke                               tutorial                                          "
+    "body": "          Categories          {% for category in site. categories %}     {{ category[0] }}:           {% assign pages_list = category[1] %}    {% for post in pages_list %}    {% if post. title != null %}     {% if group == null or group == post. group %}           {% include main-loop-card. html %}     {% endif %}    {% endif %}    {% endfor %}    {% assign pages_list = nil %}    {% assign group = nil %}    {% endfor %}                  {% include sidebar-category. html %}          "
     }, {
     "id": 2,
     "url": "http://localhost:4000/contact.html",
     "title": "Contact",
-    "body": "Please send your message to cfrenzel. We will reply as soon as possible!   "
+    "body": "Please send your message to {{site. name}}. We will reply as soon as possible!   "
     }, {
     "id": 3,
     "url": "http://localhost:4000/",
@@ -284,27 +288,254 @@ function lunr_search(term) {
         </div>        
          <!--endif page url is / -->
             
-        <div class="container">
-<h3 class="font-weight-bold spanborder"><span>Contact</span></h3>
-<div class="page-content">
-<form action="https://formspree.io/mdokrjoz" method="POST">
-<p class="mb-4">Please send your message to cfrenzel. We will reply as soon as possible!</p>
-<div class="form-group row">
-<div class="col-md-6">
-<input class="form-control" type="text" name="name" placeholder="Name*" required="" />
+        
+<div class="container">
+<div class="jumbotron jumbotron-fluid mb-3 pl-0 pt-0 pb-0 bg-white position-relative">
+		<div class="h-100 tofront">
+			<div class="row">
+				<div class="col-md-10">
+					<p>
+                        <span class="catlist">
+						
+                          <a class="sscroll category-text" href="/categories.html#development">development</a><span class="sep"> / </span>
+						
+						
+						  
+                          <a class="sscroll tag-text" href="/tags/mediatr">mediatR</a><span class="sep"> / </span>
+						  
+						
+						  
+                          <a class="sscroll tag-text" href="/tags/tutorial">tutorial</a><span class="sep"> / </span>
+						  
+						
+                        </span>
+					</p>
+					<h1 class="article-headline">Learning From Open Source Part1: MediatR
+					</h1>
+					<small class="ml-3 text-muted">
+							<i class="far fa-clock"></i><span class="reading-time">
+  
+  
+    4 mins read
+  
+</span>
+     
+							: <strong>Camron Frenzel</strong>
+				    </small>
+					<!-- <div class="d-flex align-items-center">
+                        
+                        <img class="rounded-circle" src="/assets/images/avatar-cam.jpg" alt="Camron Frenzel" width="40"/>
+                        
+						<small class="ml-3"> Camron Frenzel 
+                            <span class="text-muted d-block mt-1">Jan 14, 2020 · <span class="reading-time">
+  
+  
+    4 mins read
+  
+</span>
+    </span>
+						</small>
+					</div> -->
+				</div>
+                <!-- 
+				<div class="col-md-2 pr-0 align-self-center">
+					<img class="rounded" src="/assets/images/splash_benjamin-catapane.jpg" alt="Learning From Open Source Part1: MediatR">
+				</div>
+                 -->
+			</div>
+		</div>
+	</div>
 </div>
-<div class="col-md-6">
-<input class="form-control" type="email" name="_replyto" placeholder="E-mail Address*" required="" />
-</div>
-</div>
-<textarea rows="8" class="form-control mb-3" name="message" placeholder="Message*" required=""></textarea>    
-<input class="btn btn-success" type="submit" value="Send" />
-</form>
 
-<!-- Comments -->
 
+<div class="container pt-2">
+	 	<div class="col-md-10">
+            <!-- Article -->
+			<article class="article-post">                
+			<p>It can be intimidating and time consuming to get familiar with a mature open source project.  Often an attempt to find inspiration just results in a surface level understanding of a few components with no real insight into the magic.  In this series I hope to find projects of just the right size and complexity to “get in there” and learn something.  Let’s take a look a <a href="https://github.com/jbogard/MediatR">MediatR</a>.</p>
+
+<p>I use MediatR in many projects because of its “simple to use” yet powerful implementation of the <a href="https://en.wikipedia.org/wiki/Mediator_pattern">Mediator Pattern</a>.  Essentially the mediator sits between method callers and receivers creating a configurable layer of abstraction that determines how callers and receivers get wired up.</p>
+
+<p>Let’s look at a quick example of a Controller calling some Application Layer code.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">TicketController</span><span class="p">:</span> <span class="n">Controller</span>
+<span class="p">{</span>
+   <span class="k">private</span> <span class="k">readonly</span> <span class="n">IMediator_mediator</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">SupplierController</span><span class="p">(</span><span class="n">IMediator</span> <span class="n">mediator</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_mediator</span> <span class="p">=</span> <span class="n">mediator</span>
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpPost</span><span class="p">]</span>
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">ActionResult</span><span class="p">&gt;</span> <span class="nf">Create</span><span class="p">(</span><span class="n">CreateTicketModel</span> <span class="n">model</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">command</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">CreateTicketCommand</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Description</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">Description</span><span class="p">,</span>
+            <span class="n">Department</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">Department</span><span class="p">,</span>
+            <span class="n">Severity</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">Severity</span>
+        <span class="p">};</span>
+
+        <span class="kt">var</span> <span class="n">res</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_mediator</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="n">command</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nf">RedirectToAction</span><span class="p">(</span><span class="s">"Show"</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">id</span> <span class="p">=</span> <span class="n">res</span><span class="p">.</span><span class="n">TicketId</span><span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>There are a few things to notice here.</p>
+<ul>
+  <li>The <code class="highlighter-rouge">IMediator</code> is injected into the Controller</li>
+  <li>There is a single <code class="highlighter-rouge">Send</code> method on the <code class="highlighter-rouge">IMediator</code> used to process all commands/messages types</li>
+  <li>The Controller has no idea who the receiver is</li>
+</ul>
+
+<p>Here’s a sample handler for <code>CreateTicketCommand</code></p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">CreateTicketHandler</span> <span class="p">:</span> <span class="n">IRequestHandler</span><span class="p">&lt;</span><span class="n">CreateTicketCommand</span><span class="p">,</span> <span class="n">CreateTicketResponse</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">ApplicationDbContext</span> <span class="n">_db</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">Handler</span><span class="p">(</span><span class="n">ApplicationDbContext</span> <span class="n">db</span><span class="p">)</span> <span class="p">=&gt;</span>  <span class="n">_db</span> <span class="p">=</span> <span class="n">db</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">CreateTicketResponse</span><span class="p">&gt;</span> <span class="nf">Handle</span><span class="p">(</span><span class="n">CreateTicketCommand</span> <span class="n">command</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+    <span class="p">{</span>
+            <span class="n">Ticket</span> <span class="n">ticket</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Ticket</span><span class="p">(</span><span class="n">command</span><span class="p">.</span><span class="n">Description</span><span class="p">,</span> <span class="n">command</span><span class="p">.</span><span class="n">Department</span><span class="p">,</span> <span class="n">command</span><span class="p">.</span><span class="n">Severity</span><span class="p">);</span>
+            <span class="n">_db</span><span class="p">.</span><span class="n">Tickets</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="n">ticket</span><span class="p">);</span>
+            <span class="k">await</span> <span class="n">_db</span><span class="p">.</span><span class="nf">SaveChangesAsync</span><span class="p">();</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">CreateTicketResponse</span><span class="p">()</span> <span class="p">{</span> <span class="n">TicektId</span> <span class="p">=</span> <span class="n">ticket</span><span class="p">.</span><span class="n">Id</span> <span class="p">};</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Notice:</p>
+<ul>
+  <li>Handler has no idea who calls it</li>
+  <li>Handler Implements a Generic <code class="highlighter-rouge">IRequestHandler&lt;CreateTicketCommand, CreateTicketResponse&gt;</code> that specifies the message type and return type</li>
+  <li>Handler has constructor parameters that must be injected by the Mediator</li>
+</ul>
+
+<p>We configure MediatR in our app’s startup with a single line</p>
+
+<ul>
+  <li>Adds MediatR to the container</li>
+  <li>We tell it what assemblies all of our handlers are in and it wires up the commands/messages with the appropriate handlers</li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">services</span><span class="p">.</span><span class="nf">AddMediatR</span><span class="p">(</span><span class="n">mediatrAssemblies</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>The Source</strong></p>
+
+<p>Let’s dig in.  First download the source or browse online at <a href="https://github.com/jbogard/MediatR/tree/master/src/MediatR">https://github.com/jbogard/MediatR/tree/master/src/MediatR</a></p>
+
+<pre>
+&gt; git clone https://github.com/jbogard/MediatR.git .
+</pre>
+
+<p>You’ll first notice a handful of simple interfaces and the <code class="highlighter-rouge">Mediator.cs</code> class itself.  Skimming through <code class="highlighter-rouge">Mediator.cs</code> you may be surprised at how small the file is.  Our <code class="highlighter-rouge">Send</code> message is sitting right there in plane site</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="k">public</span> <span class="nf">Mediator</span><span class="p">(</span><span class="n">ServiceFactory</span> <span class="n">serviceFactory</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_serviceFactory</span> <span class="p">=</span> <span class="n">serviceFactory</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="n">Send</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;(</span><span class="n">IRequest</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="n">request</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">request</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentNullException</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">request</span><span class="p">));</span>
+            <span class="p">}</span>
+
+            <span class="kt">var</span> <span class="n">requestType</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="nf">GetType</span><span class="p">();</span>
+
+            <span class="kt">var</span> <span class="n">handler</span> <span class="p">=</span> <span class="p">(</span><span class="n">RequestHandlerWrapper</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;)</span><span class="n">_requestHandlers</span><span class="p">.</span><span class="nf">GetOrAdd</span><span class="p">(</span><span class="n">requestType</span><span class="p">,</span>
+                <span class="n">t</span> <span class="p">=&gt;</span> <span class="n">Activator</span><span class="p">.</span><span class="nf">CreateInstance</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">RequestHandlerWrapperImpl</span><span class="p">&lt;,&gt;).</span><span class="nf">MakeGenericType</span><span class="p">(</span><span class="n">requestType</span><span class="p">,</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TResponse</span><span class="p">))));</span>
+
+            <span class="k">return</span> <span class="n">handler</span><span class="p">.</span><span class="nf">Handle</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">,</span> <span class="n">_serviceFactory</span><span class="p">);</span>
+        <span class="p">}</span>
+
+</code></pre></div></div>
+
+                
+			</article>
+			<!-- Tags
+			<div class="mb-4">
+				<span class="taglist">
+				
+				  <a class="sscroll btn btn-light btn-sm font-weight-bold" href="/tags.html#mediatr">mediatr</a>
+				
+				  <a class="sscroll btn btn-light btn-sm font-weight-bold" href="/tags.html#tutorial">tutorial</a>
+				
+				</span>
+			</div> -->
+         
+<!-- Aletbar Prev/Next -->
+<div class="alertbar">
+		<div class="container">
+			<div class="row prevnextlinks small font-weight-bold">
+			  
+				<div class="col-md-6 rightborder pl-0">
+					<a class="text-dark" href="/domain-events-efcore-mediatr/"> <img height="30px" class="mr-1" src="/assets/images/book-Evans_2004_ddd.jpg">  Simple Domain Events with EFCore and MediatR</a>
+				</div>
+			  
+			  
+			</div>
+		</div>
+	</div>
+	
+             <!-- Author Box -->
+                				
+				<div class="row mt-5">
+					<div class="col-md-2 align-self-center">
+                         
+                        <img class="rounded-circle" src="/assets/images/avatar-cam.jpg" alt="Camron Frenzel" width="90"/>
+                         
+					</div>
+					<div class="col-md-10">		
+						<h6 class="font-weight-bold">Written by Camron Frenzel </h6>
+						Jan 14, 2020
+						<br/>
+							<span>
+								<a target="_blank" href="https://github.com/cfrenzel" style="color:inherit">
+								  <i class="fab fa-github"></i> github.com/cfrenzel
+								</a>
+								</span>
+						
+											
+					</div>
+				</div>				
+                
+            
+            <!-- Comments -->
+            
+                <!--  Don't edit anything here. Set your disqus id in _config.yml -->
+
+<div id="comments" class="mt-5">
+    <div id="disqus_thread">
+    </div>
+    <script type="text/javascript">
+        var disqus_shortname = 'cfrenzel'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>
+    Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+    </noscript>
 </div>
+            
+            
+		</div>
+        
+        
+	</div>
 </div>
+
+
     </main>
 
 
