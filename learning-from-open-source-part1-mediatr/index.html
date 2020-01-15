@@ -4,20 +4,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>cfrenzel | cfrenzel</title>
+    <title>Learning From Open Source Part1: MediatR | cfrenzel</title>
 
     <!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>cfrenzel | Blog of Camron Frenzel</title>
+<title>Learning From Open Source Part1: MediatR | cfrenzel</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="cfrenzel" />
+<meta property="og:title" content="Learning From Open Source Part1: MediatR" />
+<meta name="author" content="camron" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Blog of Camron Frenzel" />
-<meta property="og:description" content="Blog of Camron Frenzel" />
-<link rel="canonical" href="https://cfrenzel.com/" />
-<meta property="og:url" content="https://cfrenzel.com/" />
+<meta name="description" content="It can be intimidating and time consuming to explore a mature open source project. Often an attempt to find inspiration just results in a surface level understanding of a few components with no real insight into the magic. In this series I hope to find projects of just the right size and complexity to “get in there” and learn something. Let’s take a look a MediatR." />
+<meta property="og:description" content="It can be intimidating and time consuming to explore a mature open source project. Often an attempt to find inspiration just results in a surface level understanding of a few components with no real insight into the magic. In this series I hope to find projects of just the right size and complexity to “get in there” and learn something. Let’s take a look a MediatR." />
+<link rel="canonical" href="https://cfrenzel.com/learning-from-open-source-part1-mediatr/" />
+<meta property="og:url" content="https://cfrenzel.com/learning-from-open-source-part1-mediatr/" />
 <meta property="og:site_name" content="cfrenzel" />
+<meta property="og:image" content="https://cfrenzel.com/assets/images/mediatr.jpeg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-01-14T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"Blog of Camron Frenzel","@type":"WebSite","url":"https://cfrenzel.com/","name":"cfrenzel","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://cfrenzel.com/assets/images/logo.png"}},"headline":"cfrenzel","@context":"http://schema.org"}</script>
+{"description":"It can be intimidating and time consuming to explore a mature open source project. Often an attempt to find inspiration just results in a surface level understanding of a few components with no real insight into the magic. In this series I hope to find projects of just the right size and complexity to “get in there” and learn something. Let’s take a look a MediatR.","@type":"BlogPosting","url":"https://cfrenzel.com/learning-from-open-source-part1-mediatr/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://cfrenzel.com/assets/images/logo.png"},"name":"camron"},"headline":"Learning From Open Source Part1: MediatR","dateModified":"2020-01-14T00:00:00-05:00","datePublished":"2020-01-14T00:00:00-05:00","author":{"@type":"Person","name":"camron"},"image":"https://cfrenzel.com/assets/images/mediatr.jpeg","mainEntityOfPage":{"@type":"WebPage","@id":"https://cfrenzel.com/learning-from-open-source-part1-mediatr/"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -59,7 +63,7 @@
 
 </head>
 
-<body class=" homefirstpage ">
+<body class="">
 
     <!-- Navbar -->
     <nav id="MagicMenu" class="topnav navbar navbar-expand-lg navbar-light bg-white fixed-top">
@@ -106,17 +110,17 @@ var documents = [{
     "id": 1,
     "url": "https://cfrenzel.com/categories.html",
     "title": "Categories",
-    "body": "          Categories               development:                                  		Learning From Open Source Part1: MediatR	: 		  It can be intimidating and time consuming to explore a mature open source project.  Often an attempt to find inspiration just results in a surface level understanding of a few compone. . . 	 									development																						mediatR														tutorial									Jan 14, 2020						                                 		Simple Domain Events with EFCore and MediatR	: 		  This post relates to the Domain Driven Design (DDD) concept of Domain Events.  These events originate in the Domain Model and are broadcast within a Bounded Context.  These are not ev. . . 	 									development																	dotnet														efcore														ddd														mediatR									Jan 03, 2020						                                 		Quickly Create Your Own . NET Code Templates And Use Them From Anywhere	: 		  Whether you need to throw together a quick console app or scaffold an enterprise solution, it can be a real time suck just creating, naming and referencing projects.  Setting up boile. . . 	 									development																						dotnet														automation														nuget														appveyor									Dec 20, 2019						                                 		Publishing . NET Core NuGet Packages with Nuke and AppVeyor	: 		  This article builds on concepts discussed by Andrew Lock, Jimmy Bogard and Georg Dangl. Here we’re going use Nuke to make build, packaging and publishing even nicer!!!	 									development																						appveyor														nuke														dotnet														nuget									Dec 17, 2019						                                                           books                                                  reading list            categories                                                                development                                                        tags                                                             appveyor                               automation                               ddd                               dotnet                               efcore                               featured                               mediatR                               nuget                               nuke                               tutorial                                          "
+    "body": "          Categories          {% for category in site. categories %}     {{ category[0] }}:           {% assign pages_list = category[1] %}    {% for post in pages_list %}    {% if post. title != null %}     {% if group == null or group == post. group %}           {% include main-loop-card. html %}     {% endif %}    {% endif %}    {% endfor %}    {% assign pages_list = nil %}    {% assign group = nil %}    {% endfor %}                  {% include sidebar-category. html %}          "
     }, {
     "id": 2,
     "url": "https://cfrenzel.com/contact.html",
     "title": "Contact",
-    "body": "Please send your message to cfrenzel. We will reply as soon as possible!   "
+    "body": "Please send your message to {{site. name}}. We will reply as soon as possible!   "
     }, {
     "id": 3,
     "url": "https://cfrenzel.com/",
     "title": "cfrenzel",
-    "body": "             Benjamin Catapane                  	                                               Learning From Open Source Part1: MediatR                          In                     development,                                                                                           Quickly Create Your Own . NET Code Templates And Use Them From Anywhere                          In                     development,                                                                                           Publishing . NET Core NuGet Packages with Nuke and AppVeyor                          In                     development,                                                                                     	                          	                          	                          	                                                                                          		Learning From Open Source Part1: MediatR	: 		  It can be intimidating and time consuming to explore a mature open source project.  Often an attempt to find inspiration just results in a surface level understanding of a few compone. . . 	 									development																						mediatR														tutorial									Jan 14, 2020						          		Simple Domain Events with EFCore and MediatR	: 		  This post relates to the Domain Driven Design (DDD) concept of Domain Events.  These events originate in the Domain Model and are broadcast within a Bounded Context.  These are not ev. . . 	 									development																	dotnet														efcore														ddd														mediatR									Jan 03, 2020						          		Quickly Create Your Own . NET Code Templates And Use Them From Anywhere	: 		  Whether you need to throw together a quick console app or scaffold an enterprise solution, it can be a real time suck just creating, naming and referencing projects.  Setting up boile. . . 	 									development																						dotnet														automation														nuget														appveyor									Dec 20, 2019						          		Publishing . NET Core NuGet Packages with Nuke and AppVeyor	: 		  This article builds on concepts discussed by Andrew Lock, Jimmy Bogard and Georg Dangl. Here we’re going use Nuke to make build, packaging and publishing even nicer!!!	 									development																						appveyor														nuke														dotnet														nuget									Dec 17, 2019						                                                           books                                                  reading list            categories                                                                development                                                        tags                                                             appveyor                               automation                               ddd                               dotnet                               efcore                               featured                               mediatR                               nuget                               nuke                               tutorial                                      "
+    "body": "  {% if page. url ==  /  %}           Benjamin Catapane                {% include sidebar-featured. html %}     {% endif %}       {% for post in paginator. posts %}      {% include main-loop-card. html %}    {% endfor %}                   {% if paginator. total_pages &gt; 1 %}              {% if paginator. previous_page %}        &laquo; Prev       {% else %}        &laquo;       {% endif %}       {% for page in (1. . paginator. total_pages) %}        {% if page == paginator. page %}        {{ page }}        {% elsif page == 1 %}        {{ page }}        {% else %}        {{ page }}        {% endif %}       {% endfor %}       {% if paginator. next_page %}        Next &raquo;       {% else %}        &raquo;       {% endif %}            {% endif %}                     {% include sidebar-category. html %}      "
     }, {
     "id": 4,
     "url": "https://cfrenzel.com/privacy-policy.html",
@@ -276,453 +280,402 @@ function lunr_search(term) {
 
     <!-- Content -->
     <main role="main" class="site-content">
+        
+        <div class="container remove-site-content-margin">
+            <div class="row">
+             <div class=splash-bg style="height:70px; width:100%;margin-bottom: 42px;"></div>
+            </div>
+        </div>        
          <!--endif page url is / -->
             
-        <div class="container">
-    
- <!-- only on home page-->
-<div class="row remove-site-content-margin" style="margin-bottom:72px; position:relative;">
-    <div class="col-md-6 splash-bg">
-      <span class="attr" style="display:block;position:absolute;font-size:10px;right: -1px;bottom: -17px;">
-          <a href="https://unsplash.com/@bencatapane?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Benjamin Catapane"><span>Benjamin Catapane</span></a>         
-      </span>
-    </div>
-    <div class="col-md-6">
-        <div class="featured-container">
-    <ol class="list-featured">	
-       
-                          
-            <li class="mb-3">
-            <span>
-                <h6 class="font-weight-bold" style="margin-bottom:.3rem">
-                    <a href="/learning-from-open-source-part1-mediatr/" class="text-dark">Learning From Open Source Part1: MediatR</a>
-                </h6>
-                <span class="d-block text-muted">
-                    In <span class="catlist">
-                    
-                    <a class="text-capitalize text-muted smoothscroll" href="/categories.html#development">development</a><span class="sep">, </span>
-                    
-                    </span>
-                </span>
-            </span>
-            </li>                
+        
+<div class="container">
+<div class="jumbotron jumbotron-fluid mb-3 pl-0 pt-0 pb-0 bg-white position-relative">
+		<div class="h-100 tofront">
+			<div class="row">
+				<div class="col-md-10">
+					<p>
+                        <span class="catlist">
+						
+                          <a class="sscroll category-text" href="/categories.html#development">development</a><span class="sep"> / </span>
+						
+						
+						  
+						
+						  
+                          <a class="sscroll tag-text" href="/tags/mediatr">mediatR</a><span class="sep"> / </span>
+						  
+						
+						  
+                          <a class="sscroll tag-text" href="/tags/tutorial">tutorial</a><span class="sep"> / </span>
+						  
+						
+                        </span>
+					</p>
+					<h1 class="article-headline">Learning From Open Source Part1: MediatR
+					</h1>
+					<small class="ml-3 text-muted">
+							<i class="far fa-clock"></i><span class="reading-time">
+  
+  
+    12 mins read
+  
+</span>
+     
+							: <strong>Camron Frenzel</strong>
+				    </small>
+					<!-- <div class="d-flex align-items-center">
                         
-            <li class="mb-3">
-            <span>
-                <h6 class="font-weight-bold" style="margin-bottom:.3rem">
-                    <a href="/dotnet-new-templating-nuget/" class="text-dark">Quickly Create Your Own .NET Code Templates And Use Them From Anywhere</a>
-                </h6>
-                <span class="d-block text-muted">
-                    In <span class="catlist">
-                    
-                    <a class="text-capitalize text-muted smoothscroll" href="/categories.html#development">development</a><span class="sep">, </span>
-                    
-                    </span>
-                </span>
-            </span>
-            </li>                
+                        <img class="rounded-circle" src="/assets/images/avatar-cam.jpg" alt="Camron Frenzel" width="40"/>
                         
-            <li class="mb-3">
-            <span>
-                <h6 class="font-weight-bold" style="margin-bottom:.3rem">
-                    <a href="/publishing-nuget-nuke-appveyor/" class="text-dark">Publishing .NET Core NuGet Packages with Nuke and AppVeyor</a>
-                </h6>
-                <span class="d-block text-muted">
-                    In <span class="catlist">
-                    
-                    <a class="text-capitalize text-muted smoothscroll" href="/categories.html#development">development</a><span class="sep">, </span>
-                    
-                    </span>
-                </span>
-            </span>
-            </li>                
-          
-        </ol>
-       <div>
-        
-            
-            <a class="smoothscroll" href="/reading-list#the-visual-mba">
-                <img class="read-thumb"  src="/assets/images/book_the-visual-mba-book-cover.jpg" alt="The Visual MBA">	
-            </a>
-            
-            <a class="smoothscroll" href="/reading-list#algorithms-to-live-by">
-                <img class="read-thumb"  src="/assets/images/book_Algorithms-to-Live-By-Hardcover-Front-Cover.png" alt="Algorithms To Live By">	
-            </a>
-            
-            <a class="smoothscroll" href="/reading-list#pentesting-azure-applications">
-                <img class="read-thumb"  src="/assets/images/book_azure-pen-testing.png" alt="Pentesting Azure Applications">	
-            </a>
-            
-            <a class="smoothscroll" href="/reading-list#why-we-sleep">
-                <img class="read-thumb"  src="/assets/images/book_why-we-sleep-cover.jpg" alt="Why We Sleep">	
-            </a>
-            
-            
-            <a href="/reading-list">
-                <span style="font-size: 1.5rem;">
-                <i class="fas fa-arrow-circle-right"></i>
-                </span>
-            </a>  
-       </div>
-
-       
-            <!-- <span>   
-                <h6 class="font-weight-bold"  style="margin-bottom:.3rem">
-                    <a href="https://github.com/cfrenzel/Eventfully">
-                        <i class="fab fa-github"></i>
-                        Eventfully
-                    </a>
-                    <a href="https://www.nuget.org/packages/Eventfully.Core/" rel="nofollow"><img src="https://camo.githubusercontent.com/277fbdd4e6ba4af63b00b9144c01eb74fe58d6fd/68747470733a2f2f696d672e736869656c64732e696f2f6e756765742f762f4576656e7466756c6c792e436f72652e7376673f7374796c653d666c61742d737175617265" alt="NuGet version (Eventfully.Core)" data-canonical-src="https://img.shields.io/nuget/v/Eventfully.Core.svg?style=flat-square" style="max-width:100%;"></a>
-                </h6> 
-                <small class="d-block text-muted">
-                       Lightweight eventing for .NET
-                </small>
-             </span> -->
-       
-</div>     
-    </div>  
-</div>
- <!--endif page url is / -->
-
-<div class="row">
-    <div class="col-md-9 main-loop">
-        
-            <div class="mb-5 d-flex justify-content-between main-loop-card">
-<div class="pr-3">
-	<h2 class="mb-1 h4 font-weight-bold">
-	<a class="text-dark" href="/learning-from-open-source-part1-mediatr/">Learning From Open Source Part1: MediatR</a>
-	</h2>
-	<p class="excerpt">
-	   It can be intimidating and time consuming to explore a mature open source project.  Often an attempt to find inspiration just results in a surface level understanding of a few compone...
-	</p>
-	<small class="d-block text-muted">
-		
-			<!-- <a class="category badge badge-pill smoothscroll" href="/categories.html#development">development</a> -->
-			<a class="sscroll text-danger" href="/categories.html#development">development</a>
-			
-			<!-- <i class="fas fa-tag"></i>	 -->
-		
-			
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/mediatr">mediatR</a>-->
-			<a  class="tag-text" href="/tags/mediatr">mediatR</a>
-			
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/tutorial">tutorial</a>-->
-			<a  class="tag-text" href="/tags/tutorial">tutorial</a>
-			
-		
-	</small>
-	<small class="text-muted">
-		Jan 14, 2020
-	</small>
-</div>
-
-	<div class="col-md-3 pr-0 text-right">
-	<a href="/learning-from-open-source-part1-mediatr/">
-	<img class="w-100" src="/assets/images/mediatr.jpeg" alt="Learning From Open Source Part1: MediatR">
-	</a>
-	</div>
-
-</div>
-        
-            <div class="mb-5 d-flex justify-content-between main-loop-card">
-<div class="pr-3">
-	<h2 class="mb-1 h4 font-weight-bold">
-	<a class="text-dark" href="/domain-events-efcore-mediatr/">Simple Domain Events with EFCore and MediatR</a>
-	</h2>
-	<p class="excerpt">
-	   This post relates to the Domain Driven Design (DDD) concept of Domain Events.  These events originate in the Domain Model and are broadcast within a Bounded Context.  These are not ev...
-	</p>
-	<small class="d-block text-muted">
-		
-			<!-- <a class="category badge badge-pill smoothscroll" href="/categories.html#development">development</a> -->
-			<a class="sscroll text-danger" href="/categories.html#development">development</a>
-			
-			<!-- <i class="fas fa-tag"></i>	 -->
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/dotnet">dotnet</a>-->
-			<a  class="tag-text" href="/tags/dotnet">dotnet</a>
-			
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/efcore">efcore</a>-->
-			<a  class="tag-text" href="/tags/efcore">efcore</a>
-			
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/ddd">ddd</a>-->
-			<a  class="tag-text" href="/tags/ddd">ddd</a>
-			
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/mediatr">mediatR</a>-->
-			<a  class="tag-text" href="/tags/mediatr">mediatR</a>
-			
-		
-	</small>
-	<small class="text-muted">
-		Jan 03, 2020
-	</small>
-</div>
-
-	<div class="col-md-3 pr-0 text-right">
-	<a href="/domain-events-efcore-mediatr/">
-	<img class="w-100" src="/assets/images/book-Evans_2004_ddd.jpg" alt="Simple Domain Events with EFCore and MediatR">
-	</a>
-	</div>
-
-</div>
-        
-            <div class="mb-5 d-flex justify-content-between main-loop-card">
-<div class="pr-3">
-	<h2 class="mb-1 h4 font-weight-bold">
-	<a class="text-dark" href="/dotnet-new-templating-nuget/">Quickly Create Your Own .NET Code Templates And Use Them From Anywhere</a>
-	</h2>
-	<p class="excerpt">
-	   Whether you need to throw together a quick console app or scaffold an enterprise solution, it can be a real time suck just creating, naming and referencing projects.  Setting up boile...
-	</p>
-	<small class="d-block text-muted">
-		
-			<!-- <a class="category badge badge-pill smoothscroll" href="/categories.html#development">development</a> -->
-			<a class="sscroll text-danger" href="/categories.html#development">development</a>
-			
-			<!-- <i class="fas fa-tag"></i>	 -->
-		
-			
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/dotnet">dotnet</a>-->
-			<a  class="tag-text" href="/tags/dotnet">dotnet</a>
-			
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/automation">automation</a>-->
-			<a  class="tag-text" href="/tags/automation">automation</a>
-			
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/nuget">nuget</a>-->
-			<a  class="tag-text" href="/tags/nuget">nuget</a>
-			
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/appveyor">appveyor</a>-->
-			<a  class="tag-text" href="/tags/appveyor">appveyor</a>
-			
-		
-	</small>
-	<small class="text-muted">
-		Dec 20, 2019
-	</small>
-</div>
-
-	<div class="col-md-3 pr-0 text-right">
-	<a href="/dotnet-new-templating-nuget/">
-	<img class="w-100" src="/assets/images/dotnet-new.png" alt="Quickly Create Your Own .NET Code Templates And Use Them From Anywhere">
-	</a>
-	</div>
-
-</div>
-        
-            <div class="mb-5 d-flex justify-content-between main-loop-card">
-<div class="pr-3">
-	<h2 class="mb-1 h4 font-weight-bold">
-	<a class="text-dark" href="/publishing-nuget-nuke-appveyor/">Publishing .NET Core NuGet Packages with Nuke and AppVeyor</a>
-	</h2>
-	<p class="excerpt">
-	   This article builds on concepts discussed by Andrew Lock, Jimmy Bogard and Georg Dangl. Here we’re going use Nuke to make build, packaging and publishing even nicer!!!
-	</p>
-	<small class="d-block text-muted">
-		
-			<!-- <a class="category badge badge-pill smoothscroll" href="/categories.html#development">development</a> -->
-			<a class="sscroll text-danger" href="/categories.html#development">development</a>
-			
-			<!-- <i class="fas fa-tag"></i>	 -->
-		
-			
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/appveyor">appveyor</a>-->
-			<a  class="tag-text" href="/tags/appveyor">appveyor</a>
-			
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/nuke">nuke</a>-->
-			<a  class="tag-text" href="/tags/nuke">nuke</a>
-			
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/dotnet">dotnet</a>-->
-			<a  class="tag-text" href="/tags/dotnet">dotnet</a>
-			
-		
-			
-			<!-- <a  class="tag badge badge-pill" href="/tag/nuget">nuget</a>-->
-			<a  class="tag-text" href="/tags/nuget">nuget</a>
-			
-		
-	</small>
-	<small class="text-muted">
-		Dec 17, 2019
-	</small>
-</div>
-
-	<div class="col-md-3 pr-0 text-right">
-	<a href="/publishing-nuget-nuke-appveyor/">
-	<img class="w-100" src="/assets/images/nuke-appveyor-build-image.png" alt="Publishing .NET Core NuGet Packages with Nuke and AppVeyor">
-	</a>
-	</div>
-
-</div>
-        
-        
-        <div class="mt-5">
-         <!-- Pagination links -->
-                  
-        </div>
-        
-    </div>
-    
-    <div class="col-md-3">
-        <div class="sticky-top sticky-top-offset">
-       
-        <div class="sidebar-label">
-                <span>books</span>
-                <hr/>
-            </div>
-        
-    <div class="taglist">
-        <ul>     
-            <li>   
-                <!-- <a class="books badge badge-pill" href="/reading-list.html">reading list</a> -->
-                <a class="books bg-highlight" href="/reading-list.html">reading list</a></li>
-        </ul>
-    </div>
-
-    <div class="sidebar-label">
-        <span>categories</span>
-        <hr/>
-    </div>
-    
-        <div class="taglist">
-            <ul>
-                
-                 <!-- 
-                <li>   
-                    <a class="category badge badge-pill smoothscroll" href="/categories.html#development">development</a>
-                </li>
+						<small class="ml-3"> Camron Frenzel 
+                            <span class="text-muted d-block mt-1">Jan 14, 2020 · <span class="reading-time">
+  
+  
+    12 mins read
+  
+</span>
+    </span>
+						</small>
+					</div> -->
+				</div>
+                <!-- 
+				<div class="col-md-2 pr-0 align-self-center">
+					<img class="rounded" src="/assets/images/mediatr.jpeg" alt="Learning From Open Source Part1: MediatR">
+				</div>
                  -->
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="container pt-2">
+	 	<div class="col-md-10">
+            <!-- Article -->
+			<article class="article-post">                
+			<p>It can be intimidating and time consuming to explore a mature open source project.  Often an attempt to find inspiration just results in a surface level understanding of a few components with no real insight into the <strong>magic</strong>.  In this series I hope to find projects of just the right size and complexity to “get in there” and learn something.  Let’s take a look a <a href="https://github.com/jbogard/MediatR">MediatR</a>.</p>
+
+<p>I use MediatR in many projects because of its “simple to use” yet powerful implementation of the <a href="https://en.wikipedia.org/wiki/Mediator_pattern">Mediator Pattern</a>.  Essentially the mediator sits between method callers and receivers creating a configurable layer of abstraction that determines how callers and receivers get wired up.</p>
+
+<p>Let’s look at a quick example of a Controller calling some Application Layer code with MediatR.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">CreateTicketCommand</span> <span class="p">:</span> <span class="n">IRequest</span><span class="p">&lt;</span><span class="n">CreateTicketResponse</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Description</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Department</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Severity</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">TicketController</span><span class="p">:</span> <span class="n">Controller</span>
+<span class="p">{</span>
+   <span class="k">private</span> <span class="k">readonly</span> <span class="n">IMediator</span> <span class="n">_mediator</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">TicketController</span><span class="p">(</span><span class="n">IMediator</span> <span class="n">mediator</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_mediator</span> <span class="p">=</span> <span class="n">mediator</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpPost</span><span class="p">]</span>
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">ActionResult</span><span class="p">&gt;</span> <span class="nf">Create</span><span class="p">(</span><span class="n">CreateTicketModel</span> <span class="n">model</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">command</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">CreateTicketCommand</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">Description</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">Description</span><span class="p">,</span>
+            <span class="n">Department</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">Department</span><span class="p">,</span>
+            <span class="n">Severity</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">Severity</span>
+        <span class="p">};</span>
+
+        <span class="kt">var</span> <span class="n">res</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_mediator</span><span class="p">.</span><span class="nf">Send</span><span class="p">(</span><span class="n">command</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nf">RedirectToAction</span><span class="p">(</span><span class="s">"Show"</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span> <span class="n">id</span> <span class="p">=</span> <span class="n">res</span><span class="p">.</span><span class="n">TicketId</span><span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>There are a few things to notice here.</p>
+<ul>
+  <li>The Command defines the type of it’s response <code class="highlighter-rouge">IRequest&lt;CreateTicketResponse&gt;</code></li>
+  <li>The <code class="highlighter-rouge">IMediator</code> is injected into the Controller</li>
+  <li>There is a single <code class="highlighter-rouge">Send</code> method on the <code class="highlighter-rouge">IMediator</code> used to dispatch all command/message types</li>
+  <li>The Controller doesn’t know who is receiving/handling the command</li>
+</ul>
+
+<p>Here’s a sample handler for <code>CreateTicketCommand</code></p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">CreateTicketHandler</span> <span class="p">:</span> <span class="n">IRequestHandler</span><span class="p">&lt;</span><span class="n">CreateTicketCommand</span><span class="p">,</span> <span class="n">CreateTicketResponse</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">ApplicationDbContext</span> <span class="n">_db</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">CreateTicketHandler</span><span class="p">(</span><span class="n">ApplicationDbContext</span> <span class="n">db</span><span class="p">)</span> <span class="p">=&gt;</span>  <span class="n">_db</span> <span class="p">=</span> <span class="n">db</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">CreateTicketResponse</span><span class="p">&gt;</span> <span class="nf">Handle</span><span class="p">(</span><span class="n">CreateTicketCommand</span> <span class="n">command</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Ticket</span> <span class="n">ticket</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Ticket</span><span class="p">(</span><span class="n">command</span><span class="p">.</span><span class="n">Description</span><span class="p">,</span> <span class="n">command</span><span class="p">.</span><span class="n">Department</span><span class="p">,</span> <span class="n">command</span><span class="p">.</span><span class="n">Severity</span><span class="p">);</span>
+        <span class="n">_db</span><span class="p">.</span><span class="n">Tickets</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="n">ticket</span><span class="p">);</span>
+        <span class="k">await</span> <span class="n">_db</span><span class="p">.</span><span class="nf">SaveChangesAsync</span><span class="p">();</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">CreateTicketResponse</span><span class="p">()</span> <span class="p">{</span> <span class="n">TicektId</span> <span class="p">=</span> <span class="n">ticket</span><span class="p">.</span><span class="n">Id</span> <span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Notice:</p>
+<ul>
+  <li>Handler doesn’t know who sent the command</li>
+  <li>Handler specifies the the message type that it handles and the response type <code class="highlighter-rouge">IRequestHandler&lt;CreateTicketCommand, CreateTicketResponse&gt;</code></li>
+  <li>Handler has constructor parameters that must be injected by the Mediator</li>
+</ul>
+
+<p>We configure MediatR in our app’s startup with a single line</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">services</span><span class="p">.</span><span class="nf">AddMediatR</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">Program</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>Here’s what I’m thinking</p>
+<ul>
+  <li>
+    <p>I never registered any handlers explicitly; so I know that MediatR is scanning my assembly for handlers.  This is pretty common and shouldn’t be much different than something like ASP.NET MVC finding your controllers, but I’d like to look under the hood a little.</p>
+  </li>
+  <li>
+    <p>The call to <code class="highlighter-rouge">_mediator.Send(command)</code> stands out as the interesting bit.  Somehow this method can take any request type, find a concrete handler implementation for that request type, instantiate it, and call it.  Let’s try to uncover the <strong>magic</strong> behind this!</p>
+  </li>
+</ul>
+
+<p><strong>Going to the Source</strong></p>
+
+<p>Let’s dig in.  First download the source or browse online at <a href="https://github.com/jbogard/MediatR/tree/master/src/MediatR">https://github.com/jbogard/MediatR/tree/master/src/MediatR</a></p>
+
+<pre>
+&gt; git clone https://github.com/jbogard/MediatR.git .
+</pre>
+
+<p>You’ll first notice a handful of simple interfaces and <code class="highlighter-rouge">Mediator.cs</code> with the core class.  Since we’re curious about it’s <code class="highlighter-rouge">Send</code> method let’s take a look inside.  The file is surprisingly small, and at first glance it looks like the <code class="highlighter-rouge">Send</code> method is actually doing some of the real work.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="k">public</span> <span class="nf">Mediator</span><span class="p">(</span><span class="n">ServiceFactory</span> <span class="n">serviceFactory</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_serviceFactory</span> <span class="p">=</span> <span class="n">serviceFactory</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="n">Send</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;(</span><span class="n">IRequest</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="n">request</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">request</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArgumentNullException</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">request</span><span class="p">));</span>
+            <span class="p">}</span>
+
+            <span class="kt">var</span> <span class="n">requestType</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="nf">GetType</span><span class="p">();</span>
+
+            <span class="kt">var</span> <span class="n">handler</span> <span class="p">=</span> <span class="p">(</span><span class="n">RequestHandlerWrapper</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;)</span><span class="n">_requestHandlers</span><span class="p">.</span><span class="nf">GetOrAdd</span><span class="p">(</span><span class="n">requestType</span><span class="p">,</span>
+                <span class="n">t</span> <span class="p">=&gt;</span> <span class="n">Activator</span><span class="p">.</span><span class="nf">CreateInstance</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">RequestHandlerWrapperImpl</span><span class="p">&lt;,&gt;).</span><span class="nf">MakeGenericType</span><span class="p">(</span><span class="n">requestType</span><span class="p">,</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TResponse</span><span class="p">))));</span>
+
+            <span class="k">return</span> <span class="n">handler</span><span class="p">.</span><span class="nf">Handle</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">,</span> <span class="n">_serviceFactory</span><span class="p">);</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<p>First things first, above I made a call using <code class="highlighter-rouge">Send(command)</code>, but the send method here is generic <code class="highlighter-rouge">Send&lt;TResponse&gt;(IRequest&lt;TResponse&gt; request)</code>.  It turns out that the compiler can infer the type argument; so you can omit it.  Our call above looks much prettier than <code class="highlighter-rouge">Send&lt;CreateTicketResponse&gt;(command)</code> <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/generics/generic-methods">(generics methods).</a>  Moving on…</p>
+
+<p>I’m starting to get excited because the <code class="highlighter-rouge">Send</code> method is basically a fat one-liner, yet it appears to be instantiating a handler and calling it (which is the primary purpose of the mediator).   Let’s dig a little deeper.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">var</span> <span class="n">handler</span> <span class="p">=</span> <span class="p">(</span><span class="n">RequestHandlerWrapper</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;)</span><span class="n">_requestHandlers</span><span class="p">.</span><span class="nf">GetOrAdd</span><span class="p">(</span><span class="n">requestType</span><span class="p">,</span>
+                <span class="n">t</span> <span class="p">=&gt;</span> <span class="n">Activator</span><span class="p">.</span><span class="nf">CreateInstance</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">RequestHandlerWrapperImpl</span><span class="p">&lt;,&gt;).</span><span class="nf">MakeGenericType</span><span class="p">(</span><span class="n">requestType</span><span class="p">,</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TResponse</span><span class="p">))));</span>
+</code></pre></div></div>
+
+<p>The outer <code class="highlighter-rouge">_requestHandlers.GetOrAdd</code> is just checking if a handler already exists before creating a new one. The real magic seems to be:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Activator</span><span class="p">.</span><span class="nf">CreateInstance</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">RequestHandlerWrapperImpl</span><span class="p">&lt;,&gt;).</span><span class="nf">MakeGenericType</span><span class="p">(</span><span class="n">requestType</span><span class="p">,</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TResponse</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>We’re getting close to something.   We’re taking a <code class="highlighter-rouge">RequestHandlerWrapperImpl&lt;,&gt;</code> calling <code class="highlighter-rouge">MakeGenericType(requestType, typeof(TResponse))</code> on it then instantiating the result which is apparently assignable to <code class="highlighter-rouge">RequestHandlerWrapper&lt;TResponse&gt;</code>.  Let’s plug in our command type above to see if it makes more sense</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typeof</span><span class="p">(</span><span class="n">RequestHandlerWrapperImpl</span><span class="p">&lt;,&gt;).</span><span class="nf">MakeGenericType</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">CreateTicketCommand</span><span class="p">),</span> <span class="k">typeof</span><span class="p">(</span><span class="n">CreateTicketResponse</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>This gives us a <code class="highlighter-rouge">RequestHandlerWrapperImpl&lt;CreateTicketCommand,CreateTicketResponse&gt;</code> which is assignable to <code class="highlighter-rouge">RequestHandlerWrapper&lt;CreateTicketResponse&gt;</code>.  For now let’s think of “RequestHandlerWrapper” as some kind of wrapper around our actual handler (<code class="highlighter-rouge">CreateTicketHandler</code>).  We know that instantiating our actual handler will need our Dependency Injection container to resolve the dependencies (like ApplicationDbContext); so perhaps the wrapper is hiding these details.  But whats up with the cast from <code class="highlighter-rouge">RequestHandlerWrapperImpl</code> down to the less generic <code class="highlighter-rouge">RequestHandlerWrapper</code>?  Believe it or not, this seemingly benign cast is part of the real <strong>magic</strong>.  The bigger concept at play here is a technique for allowing non-generic code to call into generic code.  It’s a little hard to see here because the return type is still generic, but notice how the <code class="highlighter-rouge">TRequest</code> goes away when casting <code class="highlighter-rouge">RequestHandlerWrapperImpl&lt;TRequest,TResponse&gt;</code> to <code class="highlighter-rouge">RequestHandlerWrapper&lt;TResponse&gt;</code>.</p>
+
+<p>Lets take a look inside:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 
+ <span class="k">internal</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">RequestHandlerWrapper</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">RequestHandlerBase</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">abstract</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="nf">Handle</span><span class="p">(</span><span class="n">IRequest</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="n">request</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">,</span>
+            <span class="n">ServiceFactory</span> <span class="n">serviceFactory</span><span class="p">);</span>
+    <span class="p">}</span>
+ 
+ <span class="k">internal</span> <span class="k">class</span> <span class="nc">RequestHandlerWrapperImpl</span><span class="p">&lt;</span><span class="n">TRequest</span><span class="p">,</span> <span class="n">TResponse</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">RequestHandlerWrapper</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span>
+        <span class="k">where</span> <span class="n">TRequest</span> <span class="p">:</span> <span class="n">IRequest</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span>
+    <span class="p">{</span>
+         <span class="k">public</span> <span class="k">override</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="nf">Handle</span><span class="p">(</span><span class="n">IRequest</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="n">request</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">,</span>
+            <span class="n">ServiceFactory</span> <span class="n">serviceFactory</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">Task</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="nf">Handler</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="n">GetHandler</span><span class="p">&lt;</span><span class="n">IRequestHandler</span><span class="p">&lt;</span><span class="n">TRequest</span><span class="p">,</span> <span class="n">TResponse</span><span class="p">&gt;&gt;(</span><span class="n">serviceFactory</span><span class="p">).</span><span class="nf">Handle</span><span class="p">((</span><span class="n">TRequest</span><span class="p">)</span> <span class="n">request</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
+
+            <span class="k">return</span> <span class="n">serviceFactory</span>
+                <span class="p">.</span><span class="n">GetInstances</span><span class="p">&lt;</span><span class="n">IPipelineBehavior</span><span class="p">&lt;</span><span class="n">TRequest</span><span class="p">,</span> <span class="n">TResponse</span><span class="p">&gt;&gt;()</span>
+                <span class="p">.</span><span class="nf">Reverse</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">Aggregate</span><span class="p">((</span><span class="n">RequestHandlerDelegate</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;)</span> <span class="n">Handler</span><span class="p">,</span> <span class="p">(</span><span class="n">next</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="n">pipeline</span><span class="p">.</span><span class="nf">Handle</span><span class="p">((</span><span class="n">TRequest</span><span class="p">)</span><span class="n">request</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">,</span> <span class="n">next</span><span class="p">))();</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Cool. So <code class="highlighter-rouge">RequestHandlerWrapperImpl&lt;TRequest, TResponse&gt;</code> inherits from the abstract <code class="highlighter-rouge">RequestHandlerWrapper&lt;TResponse&gt;</code>.  So we have the generic implementation extending the non-generic (with respect to TRequest).  Ultimately, <code class="highlighter-rouge">RequestHandlerWrapper&lt;TResponse&gt;</code> is providing a single non-generic handler interface that we can use to make calls into all the generic implementations for each request/message type.  Let’s see how the generic version accomplishes this:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">public</span> <span class="k">override</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="nf">Handle</span><span class="p">(</span><span class="n">IRequest</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="n">request</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">,</span>
+            <span class="n">ServiceFactory</span> <span class="n">serviceFactory</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">Task</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="nf">Handler</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="n">GetHandler</span><span class="p">&lt;</span><span class="n">IRequestHandler</span><span class="p">&lt;</span><span class="n">TRequest</span><span class="p">,</span> <span class="n">TResponse</span><span class="p">&gt;&gt;(</span><span class="n">serviceFactory</span><span class="p">).</span><span class="nf">Handle</span><span class="p">((</span><span class="n">TRequest</span><span class="p">)</span> <span class="n">request</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
+
+            <span class="k">return</span> <span class="n">serviceFactory</span>
+                <span class="p">.</span><span class="n">GetInstances</span><span class="p">&lt;</span><span class="n">IPipelineBehavior</span><span class="p">&lt;</span><span class="n">TRequest</span><span class="p">,</span> <span class="n">TResponse</span><span class="p">&gt;&gt;()</span>
+                <span class="p">.</span><span class="nf">Reverse</span><span class="p">()</span>
+                <span class="p">.</span><span class="nf">Aggregate</span><span class="p">((</span><span class="n">RequestHandlerDelegate</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;)</span> <span class="n">Handler</span><span class="p">,</span> <span class="p">(</span><span class="n">next</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="n">pipeline</span><span class="p">.</span><span class="nf">Handle</span><span class="p">((</span><span class="n">TRequest</span><span class="p">)</span><span class="n">request</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">,</span> <span class="n">next</span><span class="p">))();</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<p>MediatR has some cool features around pipelines, but a basic mediator doesn’t need any of that.  Let’s focus on how the <code class="highlighter-rouge">RequestHandlerWrapperImpl&lt;TRequest, TResponse&gt;</code> does it’s job of calling our <code class="highlighter-rouge">CreateTicketHandler</code> with this line:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Task</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="nf">Handler</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="n">GetHandler</span><span class="p">&lt;</span><span class="n">IRequestHandler</span><span class="p">&lt;</span><span class="n">TRequest</span><span class="p">,</span> <span class="n">TResponse</span><span class="p">&gt;&gt;(</span><span class="n">serviceFactory</span><span class="p">).</span><span class="nf">Handle</span><span class="p">((</span><span class="n">TRequest</span><span class="p">)</span> <span class="n">request</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<p>Let’s break this down</p>
+
+<ul>
+  <li>First we call <code class="highlighter-rouge">GetHandler()</code> on our base <code class="highlighter-rouge">RequestHandlerBase</code> class.  This should return our actual handler (<code class="highlighter-rouge">CreateTicketHandler</code>).  We’ll take a look inside a little later</li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GetHandler</span><span class="p">&lt;</span><span class="n">IRequestHandler</span><span class="p">&lt;</span><span class="n">TRequest</span><span class="p">,</span> <span class="n">TResponse</span><span class="p">&gt;&gt;(</span><span class="n">serviceFactory</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Then we call the <code class="highlighter-rouge">Handle()</code> method on the actual handler (<code class="highlighter-rouge">CreateTicketHandler</code>).  We must cast the <code class="highlighter-rouge">IRequest&lt;TResponse&gt;</code> to <code class="highlighter-rouge">TRequest</code> to complete the bridge from the non-generic to generic.</li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">.</span><span class="nf">Handle</span><span class="p">((</span><span class="n">TRequest</span><span class="p">)</span> <span class="n">request</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>With our command it’s doing something like this</li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//request is an IRequest&lt;CreateTicketResponse&gt; from the non-generic</span>
+<span class="p">.</span><span class="nf">Handle</span><span class="p">((</span><span class="n">CreateTicketCommand</span><span class="p">)</span> <span class="n">request</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Now we are creating something like a function pointer to <code class="highlighter-rouge">.Handle()</code> with a lambda</li>
+</ul>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Task</span><span class="p">&lt;</span><span class="n">TResponse</span><span class="p">&gt;</span> <span class="nf">Handler</span><span class="p">()</span> <span class="p">=&gt;</span> 
+</code></pre></div></div>
+
+<p>At this point awaiting the Handler would wrap up our dispatch to <code class="highlighter-rouge">CreateTicketHandler</code>.  Let’s back up one step and see how the instantiation of our handler with Dependency Injection went down in <code class="highlighter-rouge">RequestHandlerBase</code>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">protected</span> <span class="k">static</span> <span class="n">THandler</span> <span class="n">GetHandler</span><span class="p">&lt;</span><span class="n">THandler</span><span class="p">&gt;(</span><span class="n">ServiceFactory</span> <span class="n">factory</span><span class="p">)</span>
+ <span class="p">{</span>
+     <span class="n">THandler</span> <span class="n">handler</span><span class="p">;</span>
+     <span class="k">try</span>
+     <span class="p">{</span>
+        <span class="n">handler</span> <span class="p">=</span> <span class="n">factory</span><span class="p">.</span><span class="n">GetInstance</span><span class="p">&lt;</span><span class="n">THandler</span><span class="p">&gt;();</span>
+     <span class="p">}</span>
+</code></pre></div></div>
+
+<p>I expected more code.  Let’s take a look at <code class="highlighter-rouge">ServiceFactory</code> to see what’s up.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">delegate</span> <span class="kt">object</span> <span class="nf">ServiceFactory</span><span class="p">(</span><span class="n">Type</span> <span class="n">serviceType</span><span class="p">);</span>
+
+<span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">ServiceFactoryExtensions</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">T</span> <span class="n">GetInstance</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="k">this</span> <span class="n">ServiceFactory</span> <span class="n">factory</span><span class="p">)</span>
+        <span class="p">=&gt;</span> <span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="nf">factory</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">T</span><span class="p">));</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">GetInstances</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="k">this</span> <span class="n">ServiceFactory</span> <span class="n">factory</span><span class="p">)</span>
+            <span class="p">=&gt;</span> <span class="p">(</span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;)</span> <span class="nf">factory</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Mind Blown!</strong> <code class="highlighter-rouge">ServiceFactory</code> is just a delegate.  Beyond that the method <code class="highlighter-rouge">GetInstance&lt;THandler&gt;</code> is an extension method on the delegate.  It turns out that <mark>C# supports extension methods on delegates</mark>.  Essentially, <code class="highlighter-rouge">ServiceFactory</code> is a single method facade over our Dependency Injection container.  The only burden <code class="highlighter-rouge">ServiceFactory</code> puts on the underlying container is to have a method that takes in a <code class="highlighter-rouge">Type</code>.  Then with a couple of extension methods we overlay a nicer generic interface <code class="highlighter-rouge">T GetInstance&lt;T&gt;</code> and <code class="highlighter-rouge">IEnumerable&lt;T&gt; GetInstances&lt;T&gt;</code>.  You don’t see this kind of one-liner magic in C# every day.</p>
+
+<p><mark>MediatR's support for all the different dependency injection frameworks boils down to a simple one line delegate</mark>.  Ironically, if you look into one of the Dependency Injection integrations like <a href="https://github.com/jbogard/MediatR.Extensions.Microsoft.DependencyInjection/blob/master/src/MediatR.Extensions.Microsoft.DependencyInjection/Registration/ServiceRegistrar.cs">MediatR.Extensions.Microsoft.DependencyInjection</a>, it takes about as much code registering all the bells and whistles related to handlers as all of MediatR.</p>
+
                 
-                <li>   
-                        <a class="sscroll smoothscroll category bg-highlight" href="/categories.html#development">development</a>
-                    </li>
+			</article>
+			<!-- Tags
+			<div class="mb-4">
+				<span class="taglist">
+				
+				  <a class="sscroll btn btn-light btn-sm font-weight-bold" href="/tags.html#featured">featured</a>
+				
+				  <a class="sscroll btn btn-light btn-sm font-weight-bold" href="/tags.html#mediatr">mediatr</a>
+				
+				  <a class="sscroll btn btn-light btn-sm font-weight-bold" href="/tags.html#tutorial">tutorial</a>
+				
+				</span>
+			</div> -->
+         
+<!-- Aletbar Prev/Next -->
+<div class="alertbar">
+		<div class="container">
+			<div class="row prevnextlinks small font-weight-bold">
+			  
+				<div class="col-md-6 rightborder pl-0">
+					<a class="text-dark" href="/domain-events-efcore-mediatr/"> <img height="30px" class="mr-1" src="/assets/images/book-Evans_2004_ddd.jpg">  Simple Domain Events with EFCore and MediatR</a>
+				</div>
+			  
+			  
+			</div>
+		</div>
+	</div>
+	
+             <!-- Author Box -->
+                				
+				<div class="row mt-5">
+					<div class="col-md-2 align-self-center">
+                         
+                        <img class="rounded-circle" src="/assets/images/avatar-cam.jpg" alt="Camron Frenzel" width="90"/>
+                         
+					</div>
+					<div class="col-md-10">		
+						<h6 class="font-weight-bold">Written by Camron Frenzel </h6>
+						Jan 14, 2020
+						<br/>
+							<span>
+								<a target="_blank" href="https://github.com/cfrenzel" style="color:inherit">
+								  <i class="fab fa-github"></i> github.com/cfrenzel
+								</a>
+								</span>
+						
+											
+					</div>
+				</div>				
                 
-           
-                
-        </ul>
-        </div>
-        
-        <div class="sidebar-label">
-                <span>tags</span>
-                <hr/>
-            </div>
-                
-        <div class="taglist">
-            <ul>
-            <!-- 
-             <li>   
-                    <a href="/tag/appveyor" class="tag badge badge-pill">appveyor</a>
-             </li>
             
-             <li>   
-                    <a href="/tag/automation" class="tag badge badge-pill">automation</a>
-             </li>
+            <!-- Comments -->
             
-             <li>   
-                    <a href="/tag/ddd" class="tag badge badge-pill">ddd</a>
-             </li>
-            
-             <li>   
-                    <a href="/tag/dotnet" class="tag badge badge-pill">dotnet</a>
-             </li>
-            
-             <li>   
-                    <a href="/tag/efcore" class="tag badge badge-pill">efcore</a>
-             </li>
-            
-             <li>   
-                    <a href="/tag/featured" class="tag badge badge-pill">featured</a>
-             </li>
-            
-             <li>   
-                    <a href="/tag/mediatr" class="tag badge badge-pill">mediatR</a>
-             </li>
-            
-             <li>   
-                    <a href="/tag/nuget" class="tag badge badge-pill">nuget</a>
-             </li>
-            
-             <li>   
-                    <a href="/tag/nuke" class="tag badge badge-pill">nuke</a>
-             </li>
-            
-             <li>   
-                    <a href="/tag/tutorial" class="tag badge badge-pill">tutorial</a>
-             </li>
-             -->
-            
-            <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="/tags/appveyor/">appveyor</a>
-                </li>
-           
-            <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="/tags/automation/">automation</a>
-                </li>
-           
-            <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="/tags/ddd/">ddd</a>
-                </li>
-           
-            <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="/tags/dotnet/">dotnet</a>
-                </li>
-           
-            <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="/tags/efcore/">efcore</a>
-                </li>
-           
-            <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="/tags/featured/">featured</a>
-                </li>
-           
-            <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="/tags/mediatr/">mediatR</a>
-                </li>
-           
-            <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="/tags/nuget/">nuget</a>
-                </li>
-           
-            <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="/tags/nuke/">nuke</a>
-                </li>
-           
-            <li>   
-                   <a class="sscroll tag smoothscroll bg-highlight" href="/tags/tutorial/">tutorial</a>
-                </li>
-           
-            
-            </ul>
-        </div>
-    </div>     
+                <!--  Don't edit anything here. Set your disqus id in _config.yml -->
+
+<div id="comments" class="mt-5">
+    <div id="disqus_thread">
     </div>
-    
+    <script type="text/javascript">
+        var disqus_shortname = 'cfrenzel'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>
+    Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+    </noscript>
 </div>
+            
+            
+		</div>
+        
+        
+	</div>
 </div>
+
+
     </main>
 
 
