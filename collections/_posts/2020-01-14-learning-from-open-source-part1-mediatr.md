@@ -7,7 +7,7 @@ image: assets/images/mediatr.jpeg
 tags: [featured, mediatR, tutorial]
 ---
 
-It can be intimidating and time consuming to explore a mature open source project.  Often an attempt to find inspiration results in a surface level understanding of a few components with no real insight into the **magic**.  In this series I hope to find projects of just the right size and complexity to "get in there" and learn something valuable.  Let's start by taking a look a [MediatR](https://github.com/jbogard/MediatR).
+It can be intimidating and time consuming to explore a mature open source project.  Often an attempt to find inspiration results in a surface level understanding of a few components with no real insight into the **magic**.  In this series I hope to find projects of just the right size and complexity to "get in there" and learn something valuable.  Let's start by taking a look at [MediatR](https://github.com/jbogard/MediatR).
 
 I use MediatR in many projects because of its "simple to use" yet powerful implementation of the [Mediator Pattern](https://en.wikipedia.org/wiki/Mediator_pattern).  Essentially the mediator sits between method callers and receivers creating a configurable layer of abstraction that determines how callers and receivers get wired up.  
 
