@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Quickly Create Your Own .NET Code Templates And Use Them From Anywhere"
+title:  "Quickly Create Your Own .NET Code Templates and Use Them From Anywhere"
 author: camron
 categories: [development]
 image: assets/images/dotnet-new.png
