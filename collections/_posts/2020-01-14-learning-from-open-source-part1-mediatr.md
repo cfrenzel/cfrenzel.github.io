@@ -9,7 +9,7 @@ tags: [featured, mediatR, tutorial]
 
 It can be intimidating and time consuming to explore a mature open source project.  Often an attempt to find inspiration results in a surface level understanding of a few components with no real insight into the **magic**.  In this series I hope to find projects of just the right size and complexity to "get in there" and learn something valuable.  Let's start by taking a look at [MediatR](https://github.com/jbogard/MediatR).
 
-I use MediatR in many projects because of its "simple to use" yet powerful implementation of the [Mediator Pattern](https://en.wikipedia.org/wiki/Mediator_pattern).  Essentially the mediator sits between method callers and receivers creating a configurable layer of abstraction that determines how callers and receivers get wired up.  
+I use MediatR in many projects because of its "simple to use" yet powerful implementation of the [Mediator Pattern](https://en.wikipedia.org/wiki/Mediator_pattern).  A mediator sits between method callers and receivers creating a configurable layer of abstraction that determines how callers and receivers get wired up. 
 
 Let's look at a quick example of a Controller calling some Application Layer code with MediatR.  
 
@@ -215,7 +215,7 @@ GetHandler<IRequestHandler<TRequest, TResponse>>(serviceFactory)
 .Handle((CreateTicketCommand) request, cancellationToken)
 ```
 
-- Now instead of actually running the `Handle()` method above, we are creating something like a function pointer to it using a lambda
+- Now instead of immediately running the `Handle()` method above, we're using a lambda to create Task that we can pass around and call later
 
 ```csharp
 Task<TResponse> Handler() => 
@@ -248,7 +248,7 @@ public static class ServiceFactoryExtensions
 }
 ```
 
-**Mind Blown!** `ServiceFactory` is just a delegate.  As a bonus the method `GetInstance<THandler>` is an extension method on the delegate.  That's right <mark>C# supports extension methods on delegates</mark>.  Essentially, `ServiceFactory` single method facade over our Dependency Injection container.  The only burden `ServiceFactory` puts on the underlying container is to have a method that takes in a `Type` parameter.  Using a couple of extension methods we overlay a nicer generic interface `T GetInstance<T>` and `IEnumerable<T> GetInstances<T>`.  You don't see this kind of **magic** in type-safe languages every day.  
+**Mind Blown!** `ServiceFactory` is just a delegate.  As a bonus the method `GetInstance<THandler>` is an extension method on the delegate.  That's right <mark>C# supports extension methods on delegates</mark>.  Essentially, `ServiceFactory` is a single method wrapper around our Dependency Injection container.  The only burden `ServiceFactory` puts on the underlying container is to have a method that takes in a `Type` parameter and returns an instance of that type.  Using a couple of extension methods we overlay a nicer generic interface `T GetInstance<T>` and `IEnumerable<T> GetInstances<T>`.  You don't see this kind of expressiveness in strongly-typed languages every day.  
 
 <mark>MediatR's support for all the different dependency injection frameworks boils down to a simple delegate</mark>.  Ironically, if you look into one of the Dependency Injection integrations like [MediatR.Extensions.Microsoft.DependencyInjection](https://github.com/jbogard/MediatR.Extensions.Microsoft.DependencyInjection/blob/master/src/MediatR.Extensions.Microsoft.DependencyInjection/Registration/ServiceRegistrar.cs), it has about as much code for registering all the bells and whistles for handlers as the core of MediatR itself.  
 

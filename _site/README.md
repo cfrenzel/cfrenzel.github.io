@@ -8,6 +8,7 @@ before publish
 > bundle exec jekyll build
 </pre>
 
+publish
 <pre>
-> git push origin
+> git push origin src
 </pre>
