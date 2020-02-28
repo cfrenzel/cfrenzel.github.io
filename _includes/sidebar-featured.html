@@ -20,7 +20,7 @@
         </ol>
        <div>
         {% assign featured-reads = site.reading_list | where: "tags","featured" | sort | reverse %}
-            {% for read in featured-reads limit:4 %}
+            {% for read in featured-reads limit:5 %}
             <a class="smoothscroll" href="{{site.baseurl}}/reading-list#{{ read.title | slugify }}">
                 <img class="read-thumb"  src="{% if read.image contains "://" %}{{ read.image }}{% else %}{{ site.baseurl }}/{{ read.image }}{% endif %}" alt="{{ read.title }}">	
             </a>
