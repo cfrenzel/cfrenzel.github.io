@@ -9,8 +9,9 @@ pre.highlight{
 	color: #eab826;
  }
  .splash-bg{
-	background-image: url('/assets/images/splash_benjamin-catapane.jpg');
-    background-repeat:no-repeat;
+	/*background-image: url('/assets/images/splash_benjamin-catapane.jpg');*/
+	background-image: url('/assets/images/splash_alexander-schimmeck.jpg');
+	background-repeat:no-repeat;
 	background-position:center center;
     background-size:cover;
 	min-height: 60px;
